@@ -15,5 +15,3 @@ documentsPath : './docs' # Optional field. Defaults to './docs'
 url : 'http://localhost' # the url at which the conference is hosted 'https://math-edu.eu/conference/home.html'
 admin : 'name:email@email.de:group:residence:function' # A generic admin. This is the only key that can be duplicated
 admin : 'georg best:best@best.best:the best:the best house:being the best' # An other generic admin
-
-
