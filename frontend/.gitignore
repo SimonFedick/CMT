@@ -1,3 +1,4 @@
 ### WEBSTORM FILES
 #//TODO add config.js somehow
 .idea/*
+node_modules
