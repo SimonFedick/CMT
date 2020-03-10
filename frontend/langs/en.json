@@ -1,0 +1,13 @@
+{
+	"header":{
+		"agenda":"Agenda",
+		"documents":"Documents",
+		"voting":"Voting",
+		"requests":"Requests",
+		"requestOfChange":"Request Of Change",
+		"requestOfSpeech":"Request Of Speech",
+		"manageRequests": "Manage Requests",
+		"profile":"Profile",
+		"userManagement":"User Management"
+	}
+}

@@ -34,6 +34,8 @@ $( document ).ready(function() {
 	// setInterval function will check in every second that new vote has started or not.
 	stopInterval = setInterval(checkVoteExistance, 1000, true);
 
+	setLanguage("de")
+
 
 });
 
@@ -71,4 +73,20 @@ const getActiveVote = new GetActiveVotingRequestPacket();
 CommunicationManager.send(getActiveVote, success, fail);
 
 
+}
+
+
+function setLanguage(lang){
+	$.get( "langs/"+lang+".json", function( data ) {
+	  setText(data)
+	});
+
+	function setText(data){
+
+		$(".text-container").each(function(i, e){
+			const jEleme = $(e)
+			const text = data[jEleme.attr("data-text-section")][jEleme.attr("data-text-elem")]
+			$(jEleme).html(text)
+		})
+	}
 }

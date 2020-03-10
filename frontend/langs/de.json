@@ -1,0 +1,13 @@
+{
+	"header":{
+		"agenda":"Agenda",
+		"documents":"Dokumente",
+		"voting":"Abstimmung",
+		"requests":"Anträge",
+		"requestOfChange":"Änderungsantrag",
+		"requestOfSpeech":"Wortnamme",
+		"manageRequests": "Antragsvewrwaltung",
+		"profile":"Meine Daten",
+		"userManagement":"Nutzerverwaltung"
+	}
+}
