@@ -95,7 +95,7 @@ function checkAdminStatus(){
                 if(packet.result === "Valid") {
                     
                     if(packet.documents.length === 0){
-                        $("<div class=\"col-lg-9\">"+"Currently no document is available"+"</div>").appendTo(documentContainer);
+                        $("<div class=\"col-lg-9\">"+window.languageData["documents"]["noDocumentsAvailable"]+"</div>").appendTo(documentContainer);
                         return;
                     }          
                     for(var doc of packet.documents){

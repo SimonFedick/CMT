@@ -131,7 +131,7 @@ function renderAgenda(data, parent) {
             $("<div class=\"row \">" +
 
                 "<div class=\"form-group mt-3 col-lg-12\" style=\"float: left; margin-left: 10pt;\">" +
-                "    <button class=\"button button-contactForm btn-class-box \" onclick=\"appendToAgenda(\'0\')\">Add Topic</button>" +
+                "    <button class=\"button button-contactForm btn-class-box \" onclick=\"appendToAgenda(\'0\')\">"+window.languageData["agenda"]["addTopic"]+"</button>" +
                 "</div>" +
                 "</div>").appendTo(target);
         } else {
@@ -177,7 +177,7 @@ function handleAgendaUpload(event) {
             console.error("Something went terribly wrong.");
         }
     } else {
-        alert("Wrong File Extension. Only .txt files allowed.")
+        alert(window.languageData["agenda"]["wrondExtensionAlert"])
     }
 
     function success(packet) {
@@ -229,9 +229,9 @@ function append(preorder, isSubtopic){
 
     var res;
     if(isSubtopic){
-        res = prompt("Enter name of new subtopic")
+        res = prompt(window.languageData["agenda"]["subtopicPrompt"])
     } else{
-        res = prompt("Enter name of new topic");
+        res = prompt(window.languageData["agenda"]["topicPrompt"]);
     }
 
     if(res != null){
@@ -297,7 +297,7 @@ This function allows admins to change the name of (sub)topics
 @param preorder : the id of the topic the admins wish to edit
 */
 function edit(preorder){
-    var res = prompt("Enter new topic name");
+    var res = prompt(window.languageData["agenda"]["renameTopicPrompt"]);
     if(res){
         const packet = new RenameTopicRequestPacket(preorder, res);
         CommunicationManager.send(packet, success, fail);

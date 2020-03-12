@@ -9,5 +9,17 @@
 		"manageRequests": "Manage Requests",
 		"profile":"Profile",
 		"userManagement":"User Management"
+	},
+	"agenda":{
+		"agendaItems":"Agenda Items",
+		"addTopic":"Add topic",
+		"subtopicPrompt":"Enter the name of the topic",
+		"topicPrompt":"Enter the name of the subtopic",
+		"renameTopicPrompt":"Enter the new name of the topic",
+		"wrondExtensionAlert":"Only .txt files are suported"
+	},
+	"documents":{
+		"submit":"Submit",
+		"noDocumentsAvailable":"Currently no document is available"
 	}
 }

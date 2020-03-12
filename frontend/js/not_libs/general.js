@@ -4,6 +4,7 @@ import GetActiveVotingRequestPacket from "../../communication/packets/GetActiveV
 import Cookies from "../../communication/utils/Cookies.js";
 
 
+
 $( document ).ready(function() {
 
 	const packet = new IsAdminRequestPacket();
@@ -79,6 +80,7 @@ CommunicationManager.send(getActiveVote, success, fail);
 function setLanguage(lang){
 	$.get( "langs/"+lang+".json", function( data ) {
 	  setText(data)
+	  window.languageData = data
 	});
 
 	function setText(data){

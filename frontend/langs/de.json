@@ -5,9 +5,21 @@
 		"voting":"Abstimmung",
 		"requests":"Anträge",
 		"requestOfChange":"Änderungsantrag",
-		"requestOfSpeech":"Wortnamme",
+		"requestOfSpeech":"Wortmeldung",
 		"manageRequests": "Antragsvewrwaltung",
 		"profile":"Meine Daten",
 		"userManagement":"Nutzerverwaltung"
+	},
+	"agenda":{
+		"agendaItems":"Tagesordnung",
+		"addTopic":"TOP hinzufügen",
+		"subtopicPrompt":"Bitte geben Sie den Namen des Unterpunktes an",
+		"topicPrompt":"Bitte geben Sie den Namen des TOPs an",
+		"renameTopicPrompt":"Bitte geben Sie den neuen Namen des TOPs an",
+		"wrondExtensionAlert":"Bitte laden Sie eine .txt Datei hoch"
+	},
+	"documents":{
+		"submit":"Hochladen",
+		"noDocumentsAvailable":"Es wurden noch keinen Dokumente hochgeladen"
 	}
 }
