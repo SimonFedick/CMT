@@ -138,7 +138,7 @@ function renderAgenda(data, parent) {
             $("<div class=\"row \">" +
 
                 "<div class=\"form-group mt-3 col-lg-12\" style=\"float: left;\">" +
-                "    Currently the agenda is empty" +
+                "    <span>"+window.languageData["agenda"]["emptyAgenda"]+"</span>" +
                 "</div>" +
                 "</div>").appendTo(target);
         }
@@ -177,7 +177,7 @@ function handleAgendaUpload(event) {
             console.error("Something went terribly wrong.");
         }
     } else {
-        alert(window.languageData["agenda"]["wrondExtensionAlert"])
+        alert(window.languageData["agenda"]["wrongExtensionAlert"])
     }
 
     function success(packet) {

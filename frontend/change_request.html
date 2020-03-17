@@ -78,7 +78,7 @@
                         <div class="col-lg-3" style="float:left;">
                         </div>
                         <div class="col-lg-9" style="float:left; margin-top: 26px;">
-                            <h2 class="text-title-class pull-left">Request of Change</h2>
+                            <h2 class="text-title-class pull-left text-container" data-text-section ="header" data-text-elem="requestOfChange">Request of Change</h2>
                         </div>
                     </div>
                     <div class="row">
@@ -86,7 +86,7 @@
                         <div class="col-lg-6">
                             <div class="form-group controls">
                                 <select class="form-control requestSelect" id="changeRequestOption">
-                                    <option disabled selected hidden>Select topic</option>
+                                    <option disabled selected hidden class="text-container" data-text-section ="requests" data-text-elem="selectTopic">Select topic</option>
                                 </select>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                             <div class="form-group">
                                 <textarea class="form-control w-100" id="requestMessage" cols="30" rows="9"
                                           onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'"
-                                          placeholder="Message"></textarea>
+                                          ></textarea>
                             </div>
                         </div>
                     </div>
@@ -105,8 +105,8 @@
                     <div class="row">
                         <div class="col-lg-3" style="float:left;"></div>
                         <div class="form-group mt-3 col-lg-6" style="float: right;">
-                            <button class="button button-contactForm btn-class-box pull-right"
-                                    onclick="submitRequest(false)">Request
+                            <button class="button button-contactForm btn-class-box pull-right text-container"
+                                    onclick="submitRequest(false)"  data-text-section ="requests" data-text-elem="request">Request
                             </button>
                         </div>
                     </div>

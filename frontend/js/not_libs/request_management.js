@@ -38,7 +38,7 @@ function renderRequests(){
 	    	
 
 	    	requestContainer.html("");
-			requestableSelect.html("<option data-type =\'\'>All Request Targets</option>");
+			requestableSelect.html("<option data-type =\'\'>"+window.languageData["requests"]["allTargets"]+"</option>");
 
 
 
@@ -110,11 +110,12 @@ function renderRequests(){
 		var changeText = $("<span>")
 		changeText.text(req.message)
 
+
 		return $("<tr data-toggle=\"collapse\" data-target=\"#accordion"+req.ID+"\" class=\"clickable\">"+
                                             "<td>"+(requestableNameSpan.html())+"</td>"+
                                             "<td>"+(day + " " + month +" " + hour+":"+min+":"+sec)+"</td>"+
-                                            "<td>"+(isChangeRequest?"Change":"Speech")+"</td>"+
-                                            "<td>"+(isChangeRequest?(req.open?"open":(req.approved?"approved":"disapproved")):(req.open?"open":"closed"))+"</td>"+
+                                            "<td>"+(isChangeRequest?window.languageData["requests"]["change"]:window.languageData["requests"]["speech"])+"</td>"+
+                                            "<td>"+(isChangeRequest?(req.open?window.languageData["requests"]["open"]:(req.approved?window.languageData["requests"]["approved"]:window.languageData["requests"]["disapproved"])):(req.open?window.languageData["requests"]["open"]:window.languageData["requests"]["closed"]))+"</td>"+
                                             "<td>"+
                                             (req.open?(isChangeRequest?
                                                  "<span onclick = \"approveRequest(\'"+req.ID+"\')\" class=\"glyphicon glyphicon-ok \"></span>"+
@@ -127,8 +128,8 @@ function renderRequests(){
                                         "<tr>"+
                                             "<td colspan=\"5\">"+
                                                 "<div id=\"accordion"+req.ID+"\" class=\"collapse\">"+
-                                                    "<h4 style=\"color:grey;\">Attendee: "+req.requester.name+"</h4>"+
-                                                    (isChangeRequest?"<h4 style=\"color:grey;\">Request Text: "+(changeText.html())+"</h4>":"")+
+                                                    "<h4 style=\"color:grey;\">"+window.languageData["requests"]["attendee"]+": "+req.requester.name+"</h4>"+
+                                                    (isChangeRequest?"<h4 style=\"color:grey;\">"+window.languageData["requests"]["requestMessage"]+": "+(changeText.html())+"</h4>":"")+
                                                 "</div>"+
                                             "</td>"+
                                         "</tr>"

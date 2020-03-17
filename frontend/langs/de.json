@@ -6,7 +6,7 @@
 		"requests":"Anträge",
 		"requestOfChange":"Änderungsantrag",
 		"requestOfSpeech":"Wortmeldung",
-		"manageRequests": "Antragsvewrwaltung",
+		"manageRequests": "Antragsverwaltung",
 		"profile":"Meine Daten",
 		"userManagement":"Nutzerverwaltung"
 	},
@@ -16,7 +16,8 @@
 		"subtopicPrompt":"Bitte geben Sie den Namen des Unterpunktes an",
 		"topicPrompt":"Bitte geben Sie den Namen des TOPs an",
 		"renameTopicPrompt":"Bitte geben Sie den neuen Namen des TOPs an",
-		"wrondExtensionAlert":"Bitte laden Sie eine .txt Datei hoch"
+		"wrongExtensionAlert":"Bitte laden Sie eine .txt Datei hoch",
+		"emptyAgenda":"Die Tagesordnung wurde noch nicht veröffentlicht"
 	},
 	"documents":{
 		"submit":"Hochladen",
@@ -57,6 +58,64 @@
 		"timeLeft":"Verbliebene Zeit",
 		"voteOption":"Wahlmöglichkeit",
 		"pleaseSelectAnOption":"Sie müssen eine Option Ankreuzen",
-		"voteSubmitted":"Ihre Stimme wurde abgegeben"
+		"voteSubmitted":"Ihre Stimme wurde abgegeben",
+		"anonymous":"Geheim",
+		"named":"Namentlich",
+		"optionNotEmpty":"Bitte alle Wahlmöglichkeiten angeben",
+		"notEnoughOptions":"Eine Wahl braucht mindestens 2 Wahlmöglichkeiten"
+	},
+	"requests":{
+		"selectTopic":"Bezüglich",
+		"request":"Senden",
+		"allRequests":"Alle Anträge",
+		"changeRequests":"Änderungsanträge",
+		"speechRequests":"Wortmeldungen",
+		"allTargets":"Alle Themen",
+		"request":"Antrag",
+		"timestamp":"Sendezeit",
+		"requestType":"Antragsart",
+		"status":"Status",
+		"change":"Änderungsantrag",
+		"speech":"Wortmeldung",
+		"open":"offen",
+		"closed":"geschlossen",
+		"approved":"angenommen",
+		"speech":"abgelehnt",
+		"attendee":"Antragsteller",
+		"requestMessage":"Antragstext"
+
+	},
+	"profile":{
+		"userName":"Nutzername",
+		"email":"Email",
+		"group":"Gruppe",
+		"function":"Rolle",
+		"residence":"Anschrift"
+	},
+	"userManagement":{
+		"sortBy":"Ordnen nach",
+		"name":"Nutzername",
+		"email":"Email",
+		"group":"Gruppe",
+		"present":"Anwesend",
+		"function":"Rolle",
+		"residence":"Anschrift",
+		"addAttendee":"Nutzer hinzufügen",
+		"yes":"Ja",
+		"no":"Nein",
+		"cancel":"Abbrechen",
+		"confirm":"Bestätigen",
+		"allFieldsRequired":"Bitte alle Felder ausfühlen",
+		"onlyCSV":"Bitte laden Sie eine Datei mit der Endung .csv hoch",
+		"serverError":"Die Verbindung zum Server konnte nicht hergestellt werden",
+		"invalidName":"Der Name darf folgende Zeichen nicht enthalten: '$%^*£=~@_'",
+		"invalidAddress":"Sie Anschrift darf folgende Zeichen nicht enthalten: '$%^*£=~@_'",
+		"invalidGroup":"Die Gruppe darf folgende Zeichen nicht enthalten: '$%^*£=~@_'",
+		"invalidFunction":"Die Rolle darf folgende Zeichen nicht enthalten: '$%^*£=~@_'",
+		"invalidEmail":"Die Emailadresse ist invalide. Emails müssen folgendem Muster entsprechen:  user@domain.com",
+		"lengthOf":"Die Länge des Feldes",
+		"mustBe":"muss zwischen",
+		"and":"und",
+		"characters":"Charactere betragen"
 	}
 }

@@ -111,7 +111,7 @@
             <div class="col-xl-12 col-md-12 col-lg-12">
                 <div class="small-section" id="submit-message">
                     <div class="small-header">
-                        <h3>User Management Panel (
+                        <h3><span class = "text-container" data-text-section ="header" data-text-elem="userManagement">User Management Panel</span> (
                             <span class="glyphicon glyphicon-file" onclick="uploadUserList()"></span>/
                             <span class="glyphicon glyphicon-save" onclick="downloadAllQrCodes()"></span>
                             <input type="file" class="form-control-file" id="upUserList" style="display:none"/>
@@ -121,14 +121,14 @@
                         <div class="row" style="padding-top: 36px;">
                             <div class="col-lg-2" style="float:left;"></div>
                             <div class="col-lg-2" style="float:left;">
-                                Sort by
+                                <span class="text-container" data-text-section ="userManagement" data-text-elem="sortBy">Sort by</span>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group controls">
                                     <select id="sortingOptions" class="form-control" style="height:100%" required>
-                                        <option selected value="attendeeName">Name</option>
-                                        <option value="attendeeGroup">Group</option>
-                                        <option value="attendeeFunction">Function</option>
+                                        <option selected value="attendeeName" class="text-container" data-text-section ="userManagement" data-text-elem="name">Name</option>
+                                        <option value="attendeeGroup" class="text-container" data-text-section ="userManagement" data-text-elem="group">Group</option>
+                                        <option value="attendeeFunction" class="text-container" data-text-section ="userManagement" data-text-elem="function">Function</option>
                                     </select>
                                 </div>
                             </div>
@@ -140,10 +140,10 @@
                             <div class="col-lg-10" style="padding-bottom: 20px;">
                                 <table class="table table-hover">
                                     <thead>
-                                    <th>Name</th>
-                                    <th>Group</th>
-                                    <th>Function</th>
-                                    <th>Present</th>
+                                    <th class="text-container" data-text-section ="userManagement" data-text-elem="name">Name</th>
+                                    <th class="text-container" data-text-section ="userManagement" data-text-elem="group">Group</th>
+                                    <th class="text-container" data-text-section ="userManagement" data-text-elem="function">Function</th>
+                                    <th class="text-container" data-text-section ="userManagement" data-text-elem="present">Present</th>
                                     </thead>
                                     <tbody id="attendeeList"></tbody>
                                 </table>
@@ -152,7 +152,7 @@
                             <div class="row">
                                 <div class="col-lg-1"></div>
                                 <div class="form-group mt-3 col-lg-10" style="float: left;">
-                                    <button class="button button-contactForm btn-class-box" id="create-attendee">Add
+                                    <button class="button button-contactForm btn-class-box text-container" id="create-attendee" data-text-section ="userManagement" data-text-elem="addAttendee">Add
                                         Attendee
                                     </button>
                                 </div>
@@ -169,43 +169,43 @@
 
 <!-- Dialog that will be shown when trying to create a user -->
 
-<div id="creationDialog" title="Create new user" class="ui-dialog">
-    <div id="creationTips">All form fields are required.</div>
+<div id="creationDialog" class="ui-dialog">
+    <div id="creationTips" class="text-container" data-text-section ="userManagement" data-text-elem="allFieldsRequired">All form fields are required.</div>
 
     <form>
         <fieldset>
 
-            <label for="createName">Name</label>
-            <input type="text" name="name" id="createName" placeholder="Enter full Name"
+            <label for="createName" class="text-container" data-text-section ="userManagement" data-text-elem="name">Name</label>
+            <input type="text" name="name" id="createName" 
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
 
-            <label for="createEmail">Email</label>
-            <input type="text" name="email" id="createEmail" placeholder="Enter Email Address"
+            <label for="createEmail" class="text-container" data-text-section ="userManagement" data-text-elem="email">Email</label>
+            <input type="text" name="email" id="createEmail" 
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
 
-            <label for="createGroup">Group</label>
-            <input type="text" name="group" id="createGroup" list="existingCreateGroups" placeholder="Enter Group"
+            <label for="createGroup" class="text-container" data-text-section ="userManagement" data-text-elem="group">Group</label>
+            <input type="text" name="group" id="createGroup" list="existingCreateGroups"
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
             <datalist id="existingCreateGroups">
 
             </datalist>
 
-            <label for="createResidence">Residence</label>
-            <input type="text" name="residence" id="createResidence" placeholder="Enter Residence"
+            <label for="createResidence" class="text-container" data-text-section ="userManagement" data-text-elem="residence" >Residence</label>
+            <input type="text" name="residence" id="createResidence"
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
 
-            <label for="createFnctn">Function</label>
-            <input type="text" name="fnctn" id="createFnctn" placeholder="Enter Function"
+            <label for="createFnctn" class="text-container" data-text-section ="userManagement" data-text-elem="function">Function</label>
+            <input type="text" name="fnctn" id="createFnctn"
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
 
             <!-- Submit buttons of dialog fields -->
             <div class="ui-dialog-content">
-                <button type="button" class="btn btn-outline-info" title="Close" style="width: 100px;"
-                        onclick="closeCreateAttendee()">Cancel
+                <button type="button" class="btn btn-outline-info text-container" title="Close" style="width: 100px;"
+                        onclick="closeCreateAttendee()"  data-text-section ="userManagement" data-text-elem="cancel">Cancel
                 </button>
 
                 <!-- Gets its functionality in attendees.js -->
-                <button type="submit" class="btn btn-outline-primary" title="Submit" style="width: 100px;">Confirm
+                <button type="submit" class="btn btn-outline-primary text-container" title="Submit" style="width: 100px;"  data-text-section ="userManagement" data-text-elem="confirm">Confirm
                 </button>
             </div>
         </fieldset>
@@ -222,50 +222,50 @@
     </button>
 </div>
 
-<div id="editDialog" title="Edit user" class="ui-dialog">
-    <div id="editingTips">All form fields are required.</div>
+<div id="editDialog" class="ui-dialog">
+    <div id="editingTips" class="text-container" data-text-section ="userManagement" data-text-elem="allFieldsRequired">All form fields are required.</div>
 
     <form>
         <fieldset>
-            <label for="editName">Name</label>
-            <input type="text" name="name" id="editName" placeholder="Enter full Name"
+            <label for="editName" class="text-container" data-text-section ="userManagement" data-text-elem="name">Name</label>
+            <input type="text" name="name" id="editName"
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
 
-            <label for="editEmail">Email</label>
-            <input type="text" name="email" id="editEmail" placeholder="Enter Email Address"
+            <label for="editEmail" class="text-container" data-text-section ="userManagement" data-text-elem="email">Email</label>
+            <input type="text" name="email" id="editEmail"
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
 
-            <label for="editGroup">Group</label>
+            <label for="editGroup" class="text-container" data-text-section ="userManagement" data-text-elem="group">Group</label>
             <datalist id="existingEditGroups">
 
             </datalist>
             <input type="text" name="group" id="editGroup" list="existingEditGroups" placeholder="Enter Group"
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
 
-            <label for="editResidence">Residence</label>
-            <input type="text" name="residence" id="editResidence" placeholder="Enter Residence"
+            <label for="editResidence" class="text-container" data-text-section ="userManagement" data-text-elem="residence">Residence</label>
+            <input type="text" name="residence" id="editResidence"
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
 
-            <label for="editFnctn">Function</label>
-            <input type="text" name="fnctn" id="editFnctn" placeholder="Enter Function"
+            <label for="editFnctn" class="text-container" data-text-section ="userManagement" data-text-elem="function">Function</label>
+            <input type="text" name="fnctn" id="editFnctn"
                    class="text ui-widget-content ui-corner-all" autocomplete="new-password">
 
-            <label for="presentStatus">Present</label>
+            <label for="presentStatus" class="text-container" data-text-section ="userManagement" data-text-elem="present">Present</label>
             <div class="btn-group" id="presentStatus" data-toggle="buttons">
                 <label class="btn btn-default btn-on btn-xs active">
-                    <input type="radio" value="1" name="edit-yes-no" checked="checked" style="opacity: 0; width: 0">Yes</label>
+                    <input type="radio" value="1" name="edit-yes-no" checked="checked" style="opacity: 0; width: 0"><span class="text-container" data-text-section ="userManagement" data-text-elem="yes">Yes</span></label>
                 <label class="btn btn-default btn-off btn-xs ">
-                    <input type="radio" value="0" name="edit-yes-no" style="opacity: 0; width: 0">No</label>
+                    <input type="radio" value="0" name="edit-yes-no" style="opacity: 0; width: 0"><span class="text-container" data-text-section ="userManagement" data-text-elem="no">No</span></label>
             </div>
 
             <!-- Submit buttons of dialog fields -->
             <div>
-                <button type="button" class="btn btn-outline-info" title="Close" style="width: 100px;"
-                        onclick="closeEditAttendee()">Cancel
+                <button type="button" class="btn btn-outline-info text-container" title="Close" style="width: 100px;"
+                        onclick="closeEditAttendee()"  data-text-section ="userManagement" data-text-elem="cancel">Cancel
                 </button>
 
                 <!-- Gets its functionality in attendees.js -->
-                <button type="submit" class="btn btn-outline-primary" title="Submit" style="width: 100px;">Confirm
+                <button type="submit" class="btn btn-outline-primary text-container" title="Submit" style="width: 100px;"  data-text-section ="userManagement" data-text-elem="confirm">Confirm
                 </button>
             </div>
         </fieldset>
@@ -281,8 +281,8 @@
 <script src="js/main.js"></script>
 <script src="js/gijgo.min.js"></script>
 
-<script type="module" src="js/not_libs/attendees.js"></script>
 <script type="module" src="js/not_libs/general.js"></script>
+<script type="module" src="js/not_libs/attendees.js"></script>
 <script type="module" src="js/not_libs/displayActiveVote.js"></script>
 
 </body>

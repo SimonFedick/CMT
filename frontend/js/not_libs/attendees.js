@@ -31,7 +31,6 @@ $(function(){
 
     //Initializing dialog options
     createDialog = $('#creationDialog').dialog({
-        title: "Create Attendee",
         autoOpen: false,
         modal: true,
         draggable: false,
@@ -66,7 +65,6 @@ $(function(){
 
     //Editing dialog mostly similar to creation dialog
     editDialog = $('#editDialog').dialog({
-        title: "Edit Attendee",
         autoOpen: false,
         modal: true,
         draggable: false,
@@ -245,7 +243,7 @@ function generateAttendee(listIndex, attendee){
         '<td>'+attendee.name+'</td>'+
         '<td>'+attendee.group+'</td>'+
         '<td>'+attendee.function+'</td>'+
-        '<td>'+attendee.present+'</td>'+
+        '<td>'+(attendee.present?window.languageData["userManagement"]["yes"]:window.languageData["userManagement"]["no"])+'</td>'+
         '</tr>'+
         '<tr>'+
         '<td colspan="4">'+
@@ -353,7 +351,7 @@ function handleListUpload(event) {
             console.error("Something went terribly wrong.");
         }
     } else {
-        alert("Wrong File Extension. Only .csv files allowed.")
+        alert(window.languageData["userManagement"]["onlyCSV"])
     }
 
 
@@ -397,7 +395,7 @@ function handleListUpload(event) {
         }
 
         function fail(){
-            alert("Something went wrong while trying to access the server.");
+            alert(window.languageData["userManagement"]["serverError"]);
         }
     }
 
@@ -426,7 +424,7 @@ function deleteAttendee(attendeeIndex){
     }
 
     function failDeleteAttendee(){
-        alert("Something went wrong while trying to access the server.");
+        alert(window.languageData["userManagement"]["serverError"]);
     }
 
     CommunicationManager.send(requestPacket, successDeleteAttendee, failDeleteAttendee);
@@ -471,7 +469,7 @@ function editAttendee(attendeeIndex, name, email, group, residence, fnctn, prese
     }
 
     function failEditAttendee(){
-        alert("Something went wrong while trying to access the server.")
+        alert(window.languageData["userManagement"]["serverError"])
     }
 
     CommunicationManager.send(editRequestPacket, successEditAttendee, failEditAttendee);
@@ -501,7 +499,7 @@ function createAttendee(name, email, group, residence, fnctn){
     }
 
     function failCreateAttendee(){
-        alert("Something went wrong while trying to access the server.");
+        alert(window.languageData["userManagement"]["serverError"]);
     }
 
     CommunicationManager.send(createRequestPacket, successCreateAttendee, failCreateAttendee);
@@ -666,7 +664,9 @@ function alertTips(line, newText){
 
 function checkLength(checkedObject, fieldName, min, max, tipID){
     if(checkedObject.val().length > max || checkedObject.val().length < min){
-        updateTips(tipID, "Length of " + fieldName + " must be between " + min + " and " + max + " characters.");
+        updateTips(tipID, window.languageData["userManagement"]["lengthOf"] + " '"+ fieldName +  
+                    "' "+window.languageData["userManagement"]["mustBe"]+ " "+ min + " "+ window.languageData["userManagement"]["and"] +" " + max + " "+ window.languageData["userManagement"]["characters"]);
+
         return false;
     }
     return true;
@@ -675,7 +675,9 @@ function checkLength(checkedObject, fieldName, min, max, tipID){
 
 function checkLengthString(checkedString, fieldName, min, max, line){
     if(checkedString.length > max || checkedString.length < min){
-        alertTips(line, "Length of " + fieldName + " must be between " + min + " and " + max + " characters.");
+        updateTips(tipID, window.languageData["userManagement"]["lengthOf"] + " '"+ fieldName +  
+                    "' "+window.languageData["userManagement"]["must be"]+ min + " "+ window.languageData["userManagement"]["and"] +" " + max + " "+ window.languageData["userManagement"]["characters"]);
+
         return false;
     }
     return true;
@@ -706,11 +708,11 @@ function checkValidData(nameID, mailID, groupID, residenceID, functionID, tipID)
     validUser = validUser && checkLength(residenceID, "residence", 1, 256, tipID);
     validUser = validUser && checkLength(functionID, "function", 1, 64, tipID);
 
-    validUser = validUser && checkRegex(nameID, nameRegex, "Name mustn't contain $%^*£=~@_", tipID);
-    validUser = validUser && checkRegex(mailID, mailRegex, "Invalid mail. Example for a valid mail: user@domain.com", tipID);
-    validUser = validUser && checkRegex(groupID, nameRegex, "Group mustn't contain $%^*£=~@_", tipID);
-    validUser = validUser && checkRegex(residenceID, nameRegex, "Residence mustn't contain $%^*£=~@_", tipID);
-    validUser = validUser && checkRegex(functionID, nameRegex, "Function mustn't contain $%^*£=~@_", tipID);
+    validUser = validUser && checkRegex(nameID, nameRegex, window.languageData["userManagement"]["invalidName"], tipID);
+    validUser = validUser && checkRegex(mailID, mailRegex, window.languageData["userManagement"]["invalidEmail"], tipID);
+    validUser = validUser && checkRegex(groupID, nameRegex, window.languageData["userManagement"]["invalidGroup"], tipID);
+    validUser = validUser && checkRegex(residenceID, nameRegex, window.languageData["userManagement"]["invalidResidence"], tipID);
+    validUser = validUser && checkRegex(functionID, nameRegex, window.languageData["userManagement"]["invalidFunction"], tipID);
 
     return validUser;
 }
@@ -725,11 +727,11 @@ function checkValidFileData(name, mail, group, residence, fun, line){
     validUser = validUser && checkLengthString(residence, "residence", 1, 256, line);
     validUser = validUser && checkLengthString(fun, "function", 1, 64, line);
 
-    validUser = validUser && checkRegexString(name, nameRegex, "Name mustn't contain $%^*£=~@_", line);
-    validUser = validUser && checkRegexString(mail, mailRegex, "Invalid mail. Example for a valid mail: user@domain.com", line);
-    validUser = validUser && checkRegexString(group, nameRegex, "Group mustn't contain $%^*£=~@_", line);
-    validUser = validUser && checkRegexString(residence, nameRegex, "Residence mustn't contain $%^*£=~@_", line);
-    validUser = validUser && checkRegexString(fun, nameRegex, "Function mustn't contain $%^*£=~@_", line);
+    validUser = validUser && checkRegexString(name, nameRegex, window.languageData["userManagement"]["invalidName"], line);
+    validUser = validUser && checkRegexString(mail, mailRegex, window.languageData["userManagement"]["invalidEmail"], line);
+    validUser = validUser && checkRegexString(group, nameRegex, window.languageData["userManagement"]["invalidGroup"], line);
+    validUser = validUser && checkRegexString(residence, nameRegex, window.languageData["userManagement"]["invalidResidence"], line);
+    validUser = validUser && checkRegexString(fun, nameRegex, window.languageData["userManagement"]["invalidFunction"], line);
 
     if(!validUser){
         fileDialog.open();

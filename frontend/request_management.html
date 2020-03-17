@@ -76,7 +76,7 @@
             <div class="col-xl-12 col-md-12 col-lg-12">
                 <div class="small-section" id="submit-message">
                     <div class="small-header" style="margin-top: 100px;">
-                        <h3>Requests Management Panel</h3>
+                        <h3  class = "text-container"  data-text-section ="header" data-text-elem="manageRequests">Requests Management Panel</h3>
                     </div>
                     <div class="row" style="padding-top: 36px;">
                         <div class="col-lg-1" style="float:left;"></div>
@@ -84,9 +84,9 @@
                             <div class="form-group controls">
                                 <select onchange="rerenderRequests()" style="height:100%" class="form-control"
                                         id="requestType" name="language" required>
-                                    <option data-type="all">All Requests Types</option>
-                                    <option data-type="change">Change Request</option>
-                                    <option data-type="speech">Speech Request</option>
+                                    <option data-type="all" class = "text-container"  data-text-section ="requests" data-text-elem="allRequests">All Requests Types</option>
+                                    <option data-type="change" class = "text-container"  data-text-section ="requests" data-text-elem="changeRequests">Change Request</option>
+                                    <option data-type="speech" class = "text-container"  data-text-section ="requests" data-text-elem="speechRequests">Speech Request</option>
                                 </select>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                             <div class="form-group controls">
                                 <select onchange="rerenderRequests()" style="height:100%" class="form-control"
                                         id="requestableType" name="language" required>
-                                    <option>All Requests Targets</option>
+                                    <option  class = "text-container"  data-text-section ="requests" data-text-elem="allTargets">All Requests Targets</option>
                                 </select>
                             </div>
                         </div>
@@ -105,10 +105,10 @@
                     <div class="col-lg-12">
                         <table class="table table-hover">
                             <thead>
-                            <th>Requests</th>
-                            <th>Time Stamp</th>
-                            <th>Request Type</th>
-                            <th>Status</th>
+                            <th class = "text-container"  data-text-section ="requests" data-text-elem="request">Requests</th>
+                            <th class = "text-container"  data-text-section ="requests" data-text-elem="timestamp">Time Stamp</th>
+                            <th class = "text-container"  data-text-section ="requests" data-text-elem="requestType">Request Type</th>
+                            <th class = "text-container"  data-text-section ="requests" data-text-elem="status">Status</th>
                             <th></th>
                             </thead>
                             <tbody id="requestContainer">
@@ -127,8 +127,8 @@
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
 
-<script type="module" src="js/not_libs/request_management.js"></script>
 <script type="module" src="js/not_libs/general.js"></script>
+<script type="module" src="js/not_libs/request_management.js"></script>
 <script type="module" src="js/not_libs/displayActiveVote.js"></script>
 
 </body>

@@ -73,8 +73,15 @@ function save(voteId, flag = false){
 		}
 	}
 
+	if(options.length < 2){
+		$('#failureMessage').html(window.languageData["voting"]["notEnoughOptions"]);
+		$("#dialogMessageForOption").dialog("open");
+		booleanCheck = true;
+		return false;
+	}
+
 	if(checkEmptyOption){ 
-		$('#failureMessage').html("Option fields should not be empty");
+		$('#failureMessage').html(window.languageData["voting"]["optionNotEmpty"]);
 		$("#dialogMessageForOption").dialog("open");
 		booleanCheck = true;
 		return false;
@@ -390,7 +397,7 @@ function renderCreatedVote(vote){
 
 	$( "<tr style ='word-break:break-all;' data-toggle=\"collapse\" data-target=\"#user_accordion"+vote.ID+"\" id='#user_accordion"+vote.ID+"' class=\"clickable\">"+
                                         "<td>"+vote.question+"</td>"+
-                                        "<td>"+(vote.namedVote?"Named":"Anonymous")+"</td>"+
+                                        "<td>"+(vote.namedVote?window.languageData["voting"]["named"]:window.languageData["voting"]["anonymous"] )+"</td>"+
                                         "<td>"+durationMinutes+"</td>"+
                                     "</tr>"+
                                     "<tr>"+
