@@ -76,7 +76,7 @@
             <div class="col-xl-12 col-md-12 col-lg-12">
                 <div class="small-section" id="submit-message2">
                     <div class="small-header">
-                        <h2 style="color:white;">Active Voting</h2>
+                        <h2 class="text-container" data-text-section ="voting" data-text-elem="activeVoting" style="color:white;">Active Voting</h2>
                     </div>
                     <div class="row">
                         <div class="col-lg-11"
@@ -92,7 +92,7 @@
                                     style="border: 1px solid #00D363; color:#00D363!important; margin-right: 20px; margin-left: 50px;"
                                     id="submitButton">Submit Vote
                             </button>-->
-                            <button type="submit" class="button btn-class-box" id="submitButton" style="margin-right: 20px; margin-left: 50px;">
+                            <button type="submit"  data-text-section ="voting" data-text-elem="submitVote" class="text-container button btn-class-box" id="submitButton" style="margin-right: 20px; margin-left: 50px;">
                                 Submit Vote
                             </button>
                         </div>
@@ -109,7 +109,7 @@
             <div class="col-xl-12 col-md-12 col-lg-12">
                 <div class="small-section">
                     <div class="small-header">
-                        <h2 style="color:white;">Previous Votings</h2>
+                        <h2 style="color:white;" class="text-container" data-text-section ="voting" data-text-elem="previousVoting">Previous Votings</h2>
                     </div>
                     <div class="row">
                         <div class="col-lg-11"
@@ -133,14 +133,14 @@
             <div class="col-xl-12 col-md-12 col-lg-12 adminField">
                 <div class="small-section" id="submit-message1" style="padding-bottom: 110px;">
                     <div class="small-header">
-                        <h2 style="color:white;">Create/Edit Votings</h2>
+                        <h2 style="color:white;" class="text-container" data-text-section ="voting" data-text-elem="createEditVote">Create/Edit Votings</h2>
                     </div>
                     <div class="table-responsive" style="overflow: hidden;">
                         <table class="table table-hover" style="font-size:20px; text-align:center;">
                             <thead>
-                            <th>Question</th>
-                            <th>Type</th>
-                            <th>Duration</th>
+                            <th class="text-container" data-text-section ="voting" data-text-elem="question">Question</th>
+                            <th class="text-container" data-text-section ="voting" data-text-elem="type">Type</th>
+                            <th class="text-container" data-text-section ="voting" data-text-elem="duration">Duration</th>
                             </thead>
                             <tbody id="createdVotesList"></tbody>
                         </table>
@@ -148,7 +148,7 @@
                     <!--<button style="margin-right: 20px; margin-left: 26px; margin-top: 20px;border: 1px solid #00D363; color:#00D363!important; float: right;"
                             class="button btn-class-box" id="createVote">New Voting
                     </button>-->
-                    <button type="button" class="button btn-class-box" id="createVote" style="float: right; margin-right: 20px;">
+                    <button type="button" class="button btn-class-box text-container" id="createVote" style="float: right; margin-right: 20px;" data-text-section ="voting" data-text-elem="newVoting">
                         New Voting
                     </button>
                 </div>
@@ -160,45 +160,45 @@
 
 <div id='dialog' style='display: none;'>
     <div class="form-group">
-        <span for="name12" style="font-weight: bold;font-size: 16px;">Vote Question</span>
+        <span for="name12" style="font-weight: bold;font-size: 16px;"  class="text-container" data-text-section ="voting" data-text-elem="question">Vote Question</span>
 
         <input class="form-control valid" name="name" id="VoteText" type="text" onfocus="this.placeholder = ''"
-               onblur="this.placeholder = 'please enter here'" placeholder="please enter here" required>
+               onblur="this.placeholder = 'please enter here'" placeholder="" required>
 
     </div>
     <div class="form-group">
-        <span for="name12" style="font-weight: bold;font-size: 16px;">Duration in minutes:</span>
+        <span for="name12" style="font-weight: bold;font-size: 16px;"  class="text-container" data-text-section ="voting" data-text-elem="durationInMinutes">Duration in minutes:</span>
 
         <input class="form-control valid" name="duration" id="duration" type="number" onfocus="this.placeholder = ''"
-               onblur="this.placeholder = 'please enter here'" placeholder="please enter here" required>
+               onblur="this.placeholder = 'please enter here'" placeholder="" required>
 
     </div>
     <div class="form-group">
-        <span style="font-weight: bold;font-size: 18px; margin-right: 10px; ">Named Vote:</span>
+        <span style="font-weight: bold;font-size: 18px; margin-right: 10px; "   class="text-container" data-text-section ="voting" data-text-elem="namedVote">Named Vote:</span>
         <div class="btn-group" id="status" data-toggle="buttons">
             <label class="btn btn-default btn-on btn-xs active">
-                <input type="radio" value="1" name="yes-no" checked="checked" style="opacity: 0; width: 0">Yes</label>
+                <input type="radio" value="1" name="yes-no" checked="checked" style="opacity: 0; width: 0"><span  class="text-container" data-text-section ="voting" data-text-elem="yes">Yes</span></label>
             <label class="btn btn-default btn-off btn-xs ">
-                <input type="radio" value="0" name="yes-no" style="opacity: 0; width: 0">No</label>
+                <input type="radio" value="0" name="yes-no" style="opacity: 0; width: 0"><span class="text-container" data-text-section ="voting" data-text-elem="no">No</span></label>
         </div>
     </div>
     <hr style="padding-bottom: 20px;" ;>
     <div>
-        <button type="button" class="btn btn-outline-info " style="width: 100px;" data-role="close" title="Close"
-                class="gj-dialog-md-close">Cancel
+        <button type="button" class="btn btn-outline-info text-container" style="width: 100px;" data-role="close" title="Close"
+                data-text-section ="voting" data-text-elem="cancel">Cancel
         </button>
 
-        <button type="button" class="btn btn-outline-primary" style="width: 100px;" data-role="close" title="Close"
-                class="gj-dialog-md-close" onclick="createNewVoting();" id="confirm">Confirm
+        <button type="button" class="btn btn-outline-primary text-container" style="width: 100px;" data-role="close" title="Close"
+               onclick="createNewVoting();" id="confirm"  data-text-section ="voting" data-text-elem="confirm">Confirm
         </button>
     </div>
 </div>
 
 <div id="dialogMessage" style="display: none;">
-    <h4 style="text-align: center; margin-top: 10px; color: black;">Option(s) has been saved successfully!</h4>
+    <h4 style="text-align: center; margin-top: 10px; color: black;"  class="text-container" data-text-section ="voting" data-text-elem="optionsSavedSuccess">Option(s) has been saved successfully!</h4>
     <hr style="padding-bottom: 10px;" ;>
     <button type="button" class="btn btn-outline-primary" style="width: 100px; float:right;" data-role="close"
-            title="Close" class="gj-dialog-md-close">OK
+            title="Close">OK
     </button>
 </div>
 
@@ -206,7 +206,7 @@
     <h4 style="text-align: center; margin-top: 10px; color: black;"><span id="failureMessage"></span></h4>
     <hr style="padding-bottom: 10px;" ;>
     <button type="button" class="btn btn-outline-primary" style="width: 100px; float:right;" data-role="close"
-            title="Close" class="gj-dialog-md-close">OK
+            title="Close" >OK
     </button>
 
 </div>
@@ -218,10 +218,10 @@
 <script src="js/gijgo.min.js"></script>
 <script src="js/main.js"></script>
 
+<script type="module" src="js/not_libs/general.js"></script>
 <script type="module" defer src="js/not_libs/voting.js"></script>
 <script type="module" src="js/not_libs/displayActiveVote.js"></script>
 <script type="module" src="js/not_libs/displayPreviousVote.js"></script>
-<script type="module" src="js/not_libs/general.js"></script>
 
 </body>
 </html>

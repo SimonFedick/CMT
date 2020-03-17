@@ -204,10 +204,10 @@ function addOption(voteId){
 					// }
 			// console.log(voteId);		
 			$('<div class="input-group mb-3">'+
-			'<input type="text" class="form-control" placeholder="Please provide the voting option" aria-label="Please provide the voting option" aria-describedby="button-addon2">'+
+			'<input type="text" class="form-control" placeholder="'+window.languageData["voting"]["addOptionPlaceholder"]+'" aria-label="Please provide the voting option" aria-describedby="button-addon2">'+
 			'<div class="input-group-append">'+
 			// '<button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>'+
-			'<button type="button" class="btn btn-outline-info" onclick="deleteVotingOption(this);">Remove</button>'+
+			'<button type="button" class="btn btn-outline-info text-container" onclick="deleteVotingOption(this);" data-text-section ="voting" data-text-elem="remove">'+window.languageData["voting"]["remove"]+'</button>'+
 			'</div>'+
 			'</div>').appendTo(optionsField);
 			
@@ -249,15 +249,13 @@ function deleteOption(btn) {
  * @param Duration of vote,
  * if everything is done successfully renderVotings function will be called in order to get all votes question that are currently available in the database. 
  */
-
 $("#dialog").dialog({
 	autoOpen: false,
 	resizable: false,
 	// autoOpen:false,
 	height: 380,
 	width: 500,
-	modal: true,
-	title: "Creat Vote Panel"
+	modal: true
 });
 
 
@@ -400,12 +398,20 @@ function renderCreatedVote(vote){
                                         "<div id=\"user_accordion"+vote.ID+"\"  class=\"collapse\">"+
                                             "<div style='padding:10px;' class = \"row\" id = \"votingOptions"+vote.ID+"\">"+
                                             "</div>"+
-											  '<button type="button" class="btn btn-outline-primary" style="margin-left: 10px; width: 200px; margin-bottom: 10px;" onclick="startVote('+vote.ID+')">Start Vote</button>' +
+											  '<button type="button" class="btn btn-outline-primary" style="margin-left: 10px; width: 200px; margin-bottom: 10px;" onclick="startVote('+vote.ID+')">'
+											  +"<span class=\"text-container\" data-text-section =\"voting\" data-text-elem=\"startVoting\">" + window.languageData["voting"]["startVoting"] + "</span>"+
+											  '</button>' +
 											// '<div class="btn-group" role="group" aria-label="Basic example">' +
-											'<button type="button" class="btn btn-outline-success" style="margin-left: 10px; width: 200px; margin-bottom: 10px;" onclick="addVotingOption('+vote.ID+')">Add</button>' +
-											'<button type="button" class="btn btn-outline-success" style="margin-left: 10px; width: 200px; margin-bottom: 10px;" onclick="saveVoting('+vote.ID+','+flag+')">Save Changes</button>' +
+											'<button type="button" class="btn btn-outline-success" style="margin-left: 10px; width: 200px; margin-bottom: 10px;" onclick="addVotingOption('+vote.ID+')">'
+											+"<span class=\"text-container\" data-text-section =\"voting\" data-text-elem=\"addOption\">" + window.languageData["voting"]["addOption"] + "</span>"+
+											'</button>' +
+											'<button type="button" class="btn btn-outline-success" style="margin-left: 10px; width: 200px; margin-bottom: 10px;" onclick="saveVoting('+vote.ID+','+flag+')">'
+											+"<span class=\"text-container\" data-text-section =\"voting\" data-text-elem=\"saveChanges\">" + window.languageData["voting"]["saveChanges"] + "</span>"+
+											'</button>' +
 											// '</div>' +
-											'<button type="button" class="btn btn-outline-danger" style="margin-left: 10px; width: 200px; margin-bottom: 10px;" onclick="deleteVote('+vote.ID+')">Delete</button>' +
+											'<button type="button" class="btn btn-outline-danger" style="margin-left: 10px; width: 200px; margin-bottom: 10px;" onclick="deleteVote('+vote.ID+')">'
+											+"<span class=\"text-container\" data-text-section =\"voting\" data-text-elem=\"delete\">" + window.languageData["voting"]["delete"] + "</span>"+
+											'</button>' +
                                             "</div>"+
                                         "</div>"+
                                     "</td>"+
@@ -420,10 +426,11 @@ function renderCreatedVote(vote){
 		// "type=\"text\" value=\""+option.name+"\"></div>").appendTo(optionsField);
 		console.log(option.name);
 		$('<div class="input-group mb-3">'+
-		'<input type="text" class="form-control" placeholder="Please provide the voting option" aria-label="Please provide the voting option" aria-describedby="button-addon2" value="'+option.name+'">'+
+		'<input type="text" class="form-control" placeholder="'+window.languageData["voting"]["addOptionPlaceholder"]+'"  aria-describedby="button-addon2" value="'+option.name+'">'+
 		'<div class="input-group-append">'+
 		// '<button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>'+
-		'<button type="button" class="btn btn-outline-info" onclick="deleteVotingOption(this);">Remove</button>'+
+		'<button type="button" class="btn btn-outline-info" onclick="deleteVotingOption(this);">'+"<span class=\"text-container\" data-text-section =\"voting\" data-text-elem=\"remove\">" + window.languageData["voting"]["remove"] + "</span>"+
+'</button>'+
 		'</div>'+
 		'</div>').appendTo(optionsField);	
 		

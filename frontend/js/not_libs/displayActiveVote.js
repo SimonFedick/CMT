@@ -86,7 +86,7 @@ function countdown(seconds) {
     var t_minutes = parseInt(seconds/60);
     var t_seconds = seconds % 60;
     if (counter) {
-		counter.innerHTML = "Time Left: " + t_hours + "hr: " + t_minutes + "min: " + (t_seconds < 10 ? "0" : "") + t_seconds + "sec";
+		counter.innerHTML = "<span class='text-container' data-text-section ='voting' data-text-elem='timeLeft'>"+window.languageData["voting"]["timeLeft"]+ ": </span>" + t_hours + "hr: " + t_minutes + "min: " + (t_seconds < 10 ? "0" : "") + t_seconds + "sec";
 	}
     hd_counter.innerHTML = '<span><a href ="vote.html" style="color:#FFFFFF">'
 		+ (t_hours < 10 ? "0" : "") + t_hours + ":"
@@ -199,7 +199,7 @@ function displayActiveVote(packet){
 			$('#voteSubmission').hide();
 			$("#voteQuestion").empty();
 			$("#voteQuestion").addClass("row").addClass("contact-title");
-			$("#voteQuestion").append("<h2 class='contact-title' style='margin-left: 40px;'>Voting has expired!</h2>");
+			$("#voteQuestion").append("<h2 class='contact-title text-container' style='margin-left: 40px;' data-text-section ='voting' data-text-elem='votingExpiered'>"+window.languageData["voting"]["votingExpiered"]+"</h2>");
 
 		}
 	} else {
@@ -208,7 +208,7 @@ function displayActiveVote(packet){
 		$("#voteSubmission").hide();
 		$("#voteQuestion").empty();
 		$("#voteQuestion").addClass("row").addClass("contact-title");
-		$("#voteQuestion").append("<h2 class='contact-title' style='margin-left: 40px;'>Currently no active voting!</h2>");
+		$("#voteQuestion").append("<h2 class='contact-title text-container' style='margin-left: 40px;' data-text-section ='voting' data-text-elem='currentlyNoActiveVoting'>"+window.languageData["voting"]["currentlyNoActiveVoting"]+"</h2>");
 	}
 	
 }
@@ -230,7 +230,7 @@ function displayActiveVote(packet){
 				// const selectedOptionId = $('input[name="radio"]:checked').attr('id').split('-');
 				console.log(checkOption);
 				if(checkOption == null){
-					$("#failure").html("<h4 style='float: right; margin-top:30px;'>Please select an option!</h4>");
+					$("#failure").html("<h4 style='float: right; margin-top:30px;' class='text-container' data-text-section ='voting' data-text-elem='pleaseSelectAnOption'>"+window.languageData["voting"]["pleaseSelectAnOption"]+"</h4>");
 					return;	
 				} 
 				
@@ -246,7 +246,7 @@ function displayActiveVote(packet){
 							$('#voteSubmission').hide();
 							$("#voteQuestion").empty();
 							$("#voteQuestion").addClass("row").addClass("contact-title");
-							$("#voteQuestion").append("<h2 class='contact-title' style='margin-left: 40px;'>Vote Submitted!</h2>");
+							$("#voteQuestion").append("<h2 class='contact-title' style='margin-left: 40px;' class='text-container' data-text-section ='voting' data-text-elem='voteSubmitted'>"+window.languageData["voting"]["voteSubmitted"]+"/h2>");
 						}
 
 						else{

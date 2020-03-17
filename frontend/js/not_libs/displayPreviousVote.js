@@ -32,7 +32,7 @@ function displayPreviousVotes(packet){
     //Display message if there haven't been any votings yet
     if(packet.votings.length === 0){
         //Maybe fix styling?
-        $('#accordion').append("<h2 class='contact-title' style='margin-left: 25px;'>Currently no finished votings!</h2>");
+        $('#accordion').append("<h2 class='contact-title text-container' style='margin-left: 25px;' data-text-section ='voting' data-text-elem='noPrevVoting'>"+window.languageData["voting"]["noPrevVoting"]+"</h2>");
     }
 
     for(var i in packet.votings){
@@ -43,7 +43,7 @@ function displayPreviousVotes(packet){
                         packet.votings[i].question +
                     '<button class="btn btn-link collapsed" data-toggle="collapse"'+
                     'data-target="#collapse'+packet.votings[i].ID+'" aria-expanded="false" aria-controls="collapse'+packet.votings[i].ID+'" style="word-break: break-word;">'+
-                    '<i style="font-size: medium">see full details</i>'+
+                    '<i style="font-size: medium" class="text-container" data-text-section ="voting" data-text-elem="seeFullDetails">'+window.languageData["voting"]["seeFullDetails"]+'</i>'+
                     '</button>'+
                     '</h5>'+
                     '</div>'+
@@ -69,7 +69,7 @@ function displayPreviousVotes(packet){
             // console.log("testing");
         }
 
-        var voteOptions = '<span style="font-weight:bold;">Total Numbers of Voters:</span> ' + totalAttendees + '<br><br>';
+        var voteOptions = '<span style="font-weight:bold;" class="text-container" data-text-section ="voting" data-text-elem="totalNumberOfVoters">'+window.languageData["voting"]["totalNumberOfVoters"]+'</span> ' + totalAttendees + '<br><br>';
         $('#'+packet.votings[i].ID+'prev').append(voteOptions);
         
         //+ 'Vote Option ' + (packet.votings[i].options[j].optionID + 1) + ': '
@@ -77,14 +77,14 @@ function displayPreviousVotes(packet){
             percentageValue = Math.round((packet.votings[i].options[j].publicVotes/totalAttendees)*100);
             voterName = packet.votings[i].options[j].votersname; 
 
-            voteOptions =  'Vote Option ' + (packet.votings[i].options[j].optionID + 1) + ': '
-                                + packet.votings[i].options[j].name + '<br>Number of voters: '
+            voteOptions =  "<span class='text-container' data-text-section ='voting' data-text-elem='voteOption'>"+window.languageData["voting"]["voteOption"]+ " </span>" + (packet.votings[i].options[j].optionID + 1) + ': '
+                                + packet.votings[i].options[j].name + '<br>' + '<span class="text-container" data-text-section ="voting" data-text-elem="numberOfVotrers">'+window.languageData["voting"]["numberOfVotrers"]+'</span>'
                                 + packet.votings[i].options[j].publicVotes + '<br>'
-                                + '<span style="font-weight:bold;">' + (isNaN(percentageValue)? 0 : percentageValue) + '% </span>' + ' of the total voters';
+                                + '<span style="font-weight:bold;">' + (isNaN(percentageValue)? 0 : percentageValue) + '% </span>' + '<span class="text-container" data-text-section ="voting" data-text-elem="ofTotalNumberOfVoters">'+window.languageData["voting"]["ofTotalNumberOfVoters"]+'</span>';
 
             //Name of Voters Section only should be displayed in case the voting is a named one
             if(packet.votings[i].namedVote){
-                voteOptions += '<br>Name of Voters: ' + (voterName == undefined || voterName.length == 0? 'Not Available': voterName.join(', '))+ '<br><br>';
+                voteOptions += '<br><span class="text-container" data-text-section ="voting" data-text-elem="nameOfVoters">'+window.languageData["voting"]["nameOfVoters"]+'</span>: ' + (voterName == undefined || voterName.length == 0? '<span class="text-container" data-text-section ="voting" data-text-elem="notAvailable">'+window.languageData["voting"]["notAvailable"]+'</span>': voterName.join(', '))+ '<br><br>';
             } else{
                 voteOptions += '<br><br>';
             }
