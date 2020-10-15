@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class Main {
 
@@ -25,13 +26,13 @@ public class Main {
      * @param args
      */
     private static void parseArguments(String[] args) {
-        if(args.length != 2) {
+        if (args.length != 2) {
             printUsage();
         } else {
-            if(!args[0].toLowerCase().equals("test") && !args[0].toLowerCase().equals("start")) {
+            if (!args[0].toLowerCase().equals("test") && !args[0].toLowerCase().equals("start")) {
                 printUsage();
-            } else if(args[0].toLowerCase().equals("test")) {
-                switch(args[1]) {
+            } else if (args[0].toLowerCase().equals("test")) {
+                switch (args[1]) {
                     case "normal":
                         startNormalConference(true);
                         break;
@@ -48,13 +49,9 @@ public class Main {
                     fis.close();
                     String str = new String(data, StandardCharsets.UTF_8);
                     conf = ConfigParser.parseConfigFile(str);
-                    CommunicationManager w = new CommunicationManagerFactory(conf).create();
-                    w.start();
-                    char c = (char) System.in.read();
-                    while(c != 'q') {
-                        c = (char) System.in.read();
-                    }
-                    w.stop();
+                    CommunicationManager communicationManager = new CommunicationManagerFactory(conf).create();
+                    communicationManager.start();
+                    listenForCommands(communicationManager);
                 } catch (IOException e) {
                     e.printStackTrace();
                     System.exit(1);
@@ -75,7 +72,7 @@ public class Main {
      **/
     private static void startNormalConference(boolean clean) {
         conf = new Conference(clean);
-        if(conf.getAllAdmins().isEmpty()) {
+        if (conf.getAllAdmins().isEmpty()) {
             conf.addAdmin(new Admin("Admin Administrator", "admin@administrator", "admin", "NoGroup", "AdminAllee", "onlyAdmin"), "admin");
             conf.addAttendee(new Attendee("Test User", "user@test.de", "user", "Tester", "Testerhood", "TestUser"), "user");
         }
@@ -84,18 +81,74 @@ public class Main {
         conf.generateAllQRCodes();
         conf.getAllQrCodes();
 
-        CommunicationManager w = new CommunicationManagerFactory(conf).enableDebugging().create();
-        w.start();
+        CommunicationManager communicationManager = new CommunicationManagerFactory(conf).enableDebugging().create();
+        communicationManager.start();
+        listenForCommands(communicationManager);
+    }
+
+    private static void listenForCommands(CommunicationManager communicationManager) {
+        System.out.println("Type \"help\" for help.");
         System.out.println("Press 'q' to close the server");
-        try {
-            char c = (char) System.in.read();
-            while(c != 'q') {
-                c = (char) System.in.read();
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            String input = scanner.nextLine();
+            String[] args = input.split(" ");
+            switch (args[0]) {
+                case "q":
+                    communicationManager.stop();
+                    System.exit(0);
+                    break;
+                case "deladmin":
+                    if(args.length == 2) {
+                        Admin admin = null;
+                        for(Admin admins : conf.getAllAdmins()) {
+                            if(admins.getUserName().equals(args[1])) {
+                                admin = admins;
+                                break;
+                            }
+                        }
+                        if(admin != null) {
+                            conf.removeAdmin(admin.getID());
+                            System.out.println("Administrator " + admin.getUserName() + " has been removed.");
+                        } else {
+                            System.out.println("There is no administrator with username \"" + args[1] + "\"");
+                        }
+                    } else {
+                        System.out.println("Type \"help\" for help.");
+                    }
+                    break;
+                case "listadmins":
+                    conf.getAllAdmins().forEach(a -> {
+                        System.out.println("");
+                        System.out.println(a.toString());
+                        System.out.println("password: " + conf.getUserPassword(a.getID()).second());
+                    });
+                    break;
+                case "passwd":
+                    if(args.length >= 2) {
+                        Admin admin = null;
+                        for(Admin admins : conf.getAllAdmins()) {
+                            if(admins.getUserName().equals(args[1])) {
+                                admin = admins;
+                                break;
+                            }
+                        }
+                        if(admin != null) {
+                            conf.generateNewUserPassword(admin.getID());
+                            System.out.println("New password: " + conf.getUserPassword(admin.getID()).second());
+                        } else {
+                            System.out.println("There is no administrator with username \"" + args[1] + "\"");
+                        }
+                    } else {
+                        System.out.println("Type \"help\" for help.");
+                    }
+                    break;
+                case "help":
+                    System.out.println("q - stops the application");
+                    System.out.println("deladmin <username> - deletes admin with given username (does not delete admins from config)");
+                    System.out.println("listadmins - lists the data of all admins");
+                    System.out.println("passwd <username> - regenerates the password for the given username of an admin");
             }
-            w.stop();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
         }
     }
 

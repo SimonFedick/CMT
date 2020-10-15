@@ -429,6 +429,8 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             adminLock.lock();
             if(admins.get(ID) == null) {
                 throw new IllegalArgumentException("Admin not found");
+            } else {
+                admins.remove(ID);
             }
             if(!db_userManagement.removeUser(ID)) {
                 throw new IllegalArgumentException("Admin can not be removed for unknown reasons");

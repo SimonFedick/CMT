@@ -5,10 +5,7 @@ import request.Request;
 import user.Admin;
 import voting.Voting;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ConfigParser {
@@ -56,10 +53,27 @@ public class ConfigParser {
                 );
 
         List<Admin> allAdmins = conf.getAllAdmins();
-        conf.deleteAllAdmins();
+        /*
+        Emails are used as unique identifiers for admins.
+        On startup, non existing admins are created from the config file.
+        No passwords from already existing accounts will be overridden, no
+        admins removed from the config file will be automatically removed.
+         */
+        List<String> eMails = new LinkedList<>();
+        allAdmins.forEach(a -> eMails.add(a.getEmail()));
+        //conf.deleteAllAdmins();
+
+        System.out.println("===[Existing Accounts]===");
+        allAdmins.forEach(a -> {
+            System.out.println(a.toString());
+            System.out.println("password: " + conf.getUserPassword(a.getID()).second() + "\n");
+        });
+
+        System.out.println("===[Added Accounts]===");
 
         admins.forEach(a -> {
             Admin admin = new Admin(a.get(0), a.get(1), conf.getFreeUserName(a.get(0)), a.get(2), a.get(3), a.get(4));
+            if(eMails.contains(admin.getEmail())) return;
             conf.addAdmin(admin);
             System.out.println(admin.toString());
             System.out.println("password: " + conf.getUserPassword(admin.getID()).second() + "\n");
