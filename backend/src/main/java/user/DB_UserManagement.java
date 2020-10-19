@@ -2,6 +2,7 @@ package user;
 
 import utils.Pair;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @SuppressWarnings("checkstyle:typename")
@@ -137,7 +138,7 @@ public interface DB_UserManagement {
      *
      * @return True, iff the attendee was added correctly.
      */
-    boolean addAttendee(Attendee a, String password, String token);
+    void addAttendee(Attendee a, String password, String token) throws SQLException;
 
     /**
      * @return a list of all {@link Attendee}s in the database.

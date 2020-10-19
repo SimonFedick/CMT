@@ -461,7 +461,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the attendee was added correctly.
      */
     @Override
-    public boolean addAttendee(Attendee a, String password, String token) {
+    public void addAttendee(Attendee a, String password, String token) throws SQLException {
         Connection connection = this.openConnection();
         String sqlstatement = "INSERT INTO users(userID, fullname, username, password, "
                 + "token, email, groups, function, residence, isAdmin, present)"
@@ -482,11 +482,10 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException ex) {
             System.err.println("An exception occurred while adding a new attendee.");
             System.err.println(ex.getMessage());
-            return false;
+            throw ex;
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 
     /**
