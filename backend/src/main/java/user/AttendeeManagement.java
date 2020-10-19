@@ -28,6 +28,6 @@ public interface AttendeeManagement {
 
     List<Pair<User, String>> getAllUsersPasswords();
 
-    boolean logoutAllUsers();
+    void logoutAllUsers();
 
 }

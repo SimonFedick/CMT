@@ -239,10 +239,10 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
         }
         if (documentsFolder.exists() && documentsFolder.isDirectory()) {
             File[] directoryListing = documentsFolder.listFiles();
-            for (int i = 0; i < directoryListing.length; i++) {
-                Document d = db_documentManagement.getDocument(directoryListing[i].getName());
+            for (File file : directoryListing) {
+                Document d = db_documentManagement.getDocument(file.getName());
                 if (d == null) {
-                    directoryListing[i].delete();
+                    file.delete();
                 } else {
                     documents.put(d.getName(), d);
                 }
@@ -275,22 +275,20 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
      *
      * @return true iff logout was successful
      */
-    public boolean logoutNonAdmins(Boolean newpw) {
+    public void logoutNonAdmins(Boolean newpw) {
         try {
             attendeeLock.lock();
-            boolean success = true;
             for (Attendee a : db_userManagement.getAllAttendees()) {
                 if (isAdmin(a.getID())) {
                     continue;
                 }
                 a.logout();
                 if (newpw) {
-                    success = db_userManagement.logoutUser(a.getID(), gen.generatePassword(), generateToken()) && success;
+                    db_userManagement.logoutUser(a.getID(), gen.generatePassword(), generateToken());
                 } else {
-                    success = db_userManagement.logoutUser(a.getID(), null, null) && success;
+                    db_userManagement.logoutUser(a.getID(), null, null);
                 }
             }
-            return success;
         } finally {
             attendeeLock.unlock();
         }
@@ -322,11 +320,9 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
         try {
             requestLock.lock();
             if (requests.containsKey(request.ID)) {
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Request does already exist!");
             }
-            if (!db_requestManagement.addRequest(request)) {
-                throw new IllegalArgumentException();
-            }
+            db_requestManagement.addRequest(request);
             requests.put(request.ID, request);
         } finally {
             requestLock.unlock();
@@ -376,9 +372,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             adminLock.lock();
             attendeeLock.lock();
             volatileUserNames.remove(a.getUserName());
-            if (!db_userManagement.addAdmin(a, gen.generatePassword(), generateToken())) {
-                throw new IllegalArgumentException("Database addition failed");
-            }
+            db_userManagement.addAdmin(a, gen.generatePassword(), generateToken());
             admins.put(a.getID(), a);
         } finally {
             attendeeLock.unlock();
@@ -431,9 +425,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             } else {
                 admins.remove(ID);
             }
-            if (!db_userManagement.removeUser(ID)) {
-                throw new IllegalArgumentException("Admin can not be removed for unknown reasons");
-            }
+            db_userManagement.removeUser(ID);
         } finally {
             adminLock.unlock();
         }
@@ -453,9 +445,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             } else {
                 admins.get(ID).logout();
             }
-            if (!(db_userManagement.logoutUser(ID, gen.generatePassword(), generateToken()))) {
-                throw new IllegalArgumentException("Admin can not be logged out for unknown reasons");
-            }
+            db_userManagement.logoutUser(ID, gen.generatePassword(), generateToken());
         } finally {
             adminLock.unlock();
         }
@@ -474,9 +464,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             if (!admins.containsKey(ID)) {
                 throw new IllegalArgumentException("Admin not found");
             }
-            if (!db_userManagement.editAdmin(a)) {
-                throw new IllegalArgumentException("Admin can not be edited for unknown reasons");
-            }
+            db_userManagement.editAdmin(a);
             admins.replace(ID, a);
         } finally {
             adminLock.unlock();
@@ -491,9 +479,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
         try {
             adminLock.lock();
             admins = new HashMap<Integer, Admin>();
-            if (!db_userManagement.removeAllAdmins()) {
-                throw new IllegalArgumentException("Can´t delete all Admins in the Database");
-            }
+            db_userManagement.removeAllAdmins();
         } finally {
             adminLock.unlock();
         }
@@ -510,8 +496,10 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
                     alreadyExists.set(true);
                 }
             });
-            if (!alreadyExists.get() && !db_userManagement.addAdmin(a, pwd, generateToken())) {
-                throw new IllegalArgumentException("Database addition failed");
+            if (alreadyExists.get()){
+                throw new IllegalArgumentException("Admin already exists!");
+            } else{
+                db_userManagement.addAdmin(a, pwd, generateToken());
             }
             admins.put(a.getID(), a);
         } finally {
@@ -535,8 +523,6 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             } else {
                 db_userManagement.addAttendee(a, pwd, generateToken());
             }
-        } catch (SQLException ex) {
-            throw new IllegalArgumentException(ex.getMessage());
         } finally {
             adminLock.unlock();
         }
@@ -554,8 +540,6 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             attendeeLock.lock();
             volatileUserNames.remove(a.getUserName());
             db_userManagement.addAttendee(a, gen.generatePassword(), generateToken());
-        } catch (SQLException ex) {
-            throw new IllegalArgumentException(ex.getMessage());
         } finally {
             attendeeLock.unlock();
             adminLock.unlock();
@@ -604,12 +588,9 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
         try {
             attendeeLock.lock();
             requestLock.lock();
-            if (!db_userManagement.removeUser(userID)) {
-                throw new IllegalArgumentException("Attendee can not be removed for unknown reasons");
-            }
-            if (!db_requestManagement.removeRequest(userID)) {
-                throw new IllegalArgumentException("Attendees requests can not be removed for unknown reasons");
-            }
+            db_userManagement.removeUser(userID);
+            db_requestManagement.removeRequest(userID);
+
             List<Integer> toRemove = new ArrayList<>();
             requests.forEach((i, r) -> {
                 if (r.getRequester().getID() == userID) {
@@ -634,9 +615,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
     public void logoutUser(int userID) {
         try {
             attendeeLock.lock();
-            if (!db_userManagement.logoutUser(userID, gen.generatePassword(), generateToken())) {
-                throw new IllegalArgumentException("Attendee can not be logged out for unknown reasons");
-            }
+            db_userManagement.logoutUser(userID, gen.generatePassword(), generateToken());
         } finally {
             attendeeLock.unlock();
         }
@@ -651,9 +630,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
     public void editAttendee(Attendee attendee) {
         try {
             attendeeLock.lock();
-            if (!db_userManagement.editAttendee(attendee)) {
-                throw new IllegalArgumentException("Attendee could not be edited for unknown reasons");
-            }
+            db_userManagement.editAttendee(attendee);
         } finally {
             attendeeLock.unlock();
         }
@@ -670,9 +647,8 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             attendeeLock.lock();
             String password = gen.generatePassword();
             System.out.println("Generated password:" + password + "for user " + userID);
-            if (!db_userManagement.storeNewPassword(userID, password)) {
-                throw new IllegalArgumentException();
-            }
+
+            db_userManagement.storeNewPassword(userID, password);
         } finally {
             attendeeLock.unlock();
         }
@@ -687,9 +663,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
     public void generateNewUserToken(int userID) {
         try {
             attendeeLock.lock();
-            if (!db_userManagement.storeNewToken(userID, generateToken())) {
-                throw new IllegalArgumentException();
-            }
+            db_userManagement.storeNewToken(userID, generateToken());
         } finally {
             attendeeLock.unlock();
         }
@@ -702,15 +676,11 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
     public void generateAllMissingUserPasswords() {
         try {
             attendeeLock.lock();
-            boolean success = true;
+
             for (Pair<User, String> p : db_userManagement.getAllPasswords()) {
                 if (p.second() == null) {
-                    success = db_userManagement.storeNewPassword(p.first().getID(), gen.generatePassword()) && success;
+                    db_userManagement.storeNewPassword(p.first().getID(), gen.generatePassword());
                 }
-            }
-
-            if (!success) {
-                throw new IllegalArgumentException();
             }
         } finally {
             attendeeLock.unlock();
@@ -732,7 +702,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
                     return p;
                 }
             }
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Attendee does not exist!");
         } finally {
             attendeeLock.unlock();
         }
@@ -759,19 +729,17 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
      * @return true iff logout was successful
      */
     @Override
-    public boolean logoutAllUsers() {
+    public void logoutAllUsers() {
         try {
             attendeeLock.lock();
-            boolean success = true;
             for (Attendee a : db_userManagement.getAllAttendees()) {
                 a.logout();
-                success = db_userManagement.logoutUser(a.getID(), gen.generatePassword(), generateToken()) && success;
+                db_userManagement.logoutUser(a.getID(), gen.generatePassword(), generateToken());
             }
             for (Attendee a : db_userManagement.getAllAdmins()) {
                 a.logout();
-                success = db_userManagement.logoutUser(a.getID(), gen.generatePassword(), generateToken()) && success;
+                db_userManagement.logoutUser(a.getID(), gen.generatePassword(), generateToken());
             }
-            return success;
         } finally {
             attendeeLock.unlock();
         }
@@ -909,11 +877,12 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
      * @param present  new present value of the user
      * @return
      */
-    public Boolean setPresentValue(String username, Boolean present) {
+    public void setPresentValue(String username, Boolean present) {
         try {
             adminLock.lock();
             attendeeLock.lock();
-            return db_userManagement.setPresentValueofUser(username, present);
+
+            db_userManagement.setPresentValueofUser(username, present);
         } finally {
             attendeeLock.unlock();
             adminLock.unlock();
