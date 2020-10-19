@@ -190,7 +190,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             tmpDir.mkdirs();
         }
 
-        long conferenceduration = endsAt - startsAt;
+        long conferenceDuration = endsAt - System.currentTimeMillis()/1000;
         Timer ActiveTimer = new Timer();
         ActiveTimer.schedule(new TimerTask() {
             @Override
@@ -201,7 +201,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             }
 
 
-        }, conferenceduration);
+        }, conferenceDuration);
 
     }
 
