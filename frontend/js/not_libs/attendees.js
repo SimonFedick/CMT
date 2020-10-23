@@ -645,7 +645,8 @@ var newNameID = $('#createName'),
     createTipField = $('#creationTips');
 
 //Mail regex from https://www.w3resource.com/javascript/form/email-validation.php
-const mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+//has been modified to accept domain endings with 1 to 100 characters
+const mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,100})+$/;
 
 //Name Regex just excluding letters that are not allowed for usernames
 const nameRegex = /[^\$%\^\*£=~@_]/;
