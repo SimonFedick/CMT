@@ -143,11 +143,15 @@ public class Main {
                         System.out.println("Type \"help\" for help.");
                     }
                     break;
+                case "logoutUsers":
+                    conf.logoutNonAdmins(true);
+                    break;
                 case "help":
                     System.out.println("q - stops the application");
                     System.out.println("deladmin <username> - deletes admin with given username (does not delete admins from config)");
                     System.out.println("listadmins - lists the data of all admins");
                     System.out.println("passwd <username> - regenerates the password for the given username of an admin");
+                    System.out.println("logoutUsers - ends the session for all non-Admins, new passwords are generated which can be used to login again");
             }
         }
     }
