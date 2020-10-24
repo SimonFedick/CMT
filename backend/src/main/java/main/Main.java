@@ -144,7 +144,12 @@ public class Main {
                     }
                     break;
                 case "logoutUsers":
-                    conf.logoutNonAdmins(true);
+                    boolean success = conf.logoutNonAdmins(true);
+                    if(success) {
+                        System.out.println("All non-Admins were logged out.");
+                    } else {
+                        System.out.println("There was a problem logging out all non-Admins.");
+                    }
                     break;
                 case "help":
                     System.out.println("q - stops the application");
