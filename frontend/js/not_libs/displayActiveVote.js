@@ -246,7 +246,7 @@ function displayActiveVote(packet){
 							$('#voteSubmission').hide();
 							$("#voteQuestion").empty();
 							$("#voteQuestion").addClass("row").addClass("contact-title");
-							$("#voteQuestion").append("<h2 class='contact-title' style='margin-left: 40px;' class='text-container' data-text-section ='voting' data-text-elem='voteSubmitted'>"+window.languageData["voting"]["voteSubmitted"]+"/h2>");
+							$("#voteQuestion").append("<h2 class='contact-title' style='margin-left: 40px;' class='text-container' data-text-section ='voting' data-text-elem='voteSubmitted'>"+window.languageData["voting"]["voteSubmitted"]+"</h2>");
 						}
 
 						else{
