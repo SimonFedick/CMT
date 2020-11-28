@@ -71,7 +71,9 @@ function login(name, password){
                     console.log("This method is called if a response from the server is received.");
                     // Take a look at the java docs for details on the structure of the packets.
                     if(packet.result === "Valid") {
-                        Cookies.setCookie("token", packet.token, packet.expiration);
+						//Cookies must have an expiration date. Since we dont want the cookie to expire automaticall
+						//we set an absurely long duration until the cookie shouldbe deleted (100 years).
+                        Cookies.setCookie("token", packet.token, 60*60*24*365*1000);
                         window.location.href = "./home.html";
                     } else {
                         $("#name").focus();

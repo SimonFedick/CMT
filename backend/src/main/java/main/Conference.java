@@ -54,10 +54,6 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
     private String name;
     @Expose
     private String organizer;
-    @Expose
-    private long startsAt;
-    @Expose
-    private long endsAt;
 
     private boolean debugingInstance;
 
@@ -97,8 +93,6 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
     public Conference(boolean cleanStart) {
         this("Test",
                 "Team 23",
-                System.currentTimeMillis(),
-                System.currentTimeMillis() + 1000 * 60 * 60,
                 new HashMap<Integer, Admin>(),
                 new HashMap<Integer, Voting>(),
                 new HashMap<String, Document>(),
@@ -119,8 +113,6 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
      *
      * @param name              the name of the conference
      * @param organizer         the organizer of the conference
-     * @param startsAt          the unix epoch of the time the conference starts at
-     * @param endsAt            the unix epoch of the time the conference ends at
      * @param admins            the admins of the conference
      * @param votings           the votings of the conference
      * @param documents         the documents of the conference
@@ -131,15 +123,13 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
      * @param deguggingInstance if this is a debugging instance
      * @param cleanStart        if existing data on the conference should be erased
      */
-    public Conference(String name, String organizer, long startsAt, long endsAt, HashMap<Integer,
+    public Conference(String name, String organizer, HashMap<Integer,
             Admin> admins, HashMap<Integer, Voting> votings, HashMap<String, Document> documents, String documentsPath,
                       HashMap<Integer, Request> requests, Voting activeVoting,
                       String databasePath, String url,
                       boolean deguggingInstance, boolean cleanStart) {
         this.name = name;
         this.organizer = organizer;
-        this.startsAt = startsAt;
-        this.endsAt = endsAt;
         this.votings = votings;
         this.documents = documents;
         this.requests = requests;
@@ -189,20 +179,6 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
         if(!tmpDir.exists()) {
             tmpDir.mkdirs();
         }
-
-        long conferenceDuration = endsAt - System.currentTimeMillis()/1000;
-        Timer ActiveTimer = new Timer();
-        ActiveTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                System.out.println("CONFERENCE IS FINISHED!");
-                System.out.println("ALL NONADMINS ARE LOGGED OUT");
-                endConference();
-            }
-
-
-        }, conferenceDuration);
-
     }
 
     /**
@@ -783,12 +759,11 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
      * @param userName - the username provided by the request
      * @param password - the password provided by the request
      *
-     * @return - A pair consisting of a {@link LoginResponse}, a token, a token, and the number of seconds until the token
-     * should expire.
+     * @return - A pair consisting of a {@link LoginResponse} and a token.
      * If the {@link LoginResponse} is not Valid then the second argument will be null
      */
     @Override
-    public Pair<LoginResponse, Pair<String, Long>> login(String userName, String password) {
+    public Pair<LoginResponse, String> login(String userName, String password) {
         try {
             adminLock.lock();
             attendeeLock.lock();
@@ -796,7 +771,7 @@ public class Conference implements UserManagement, VotingManagement, RequestMana
             if(response.first() != LoginResponse.Valid) {
                 return new Pair<>(response.first(), null);
             } else {
-                return new Pair<>(response.first(), new Pair<>(response.second(), endsAt));
+                return new Pair<>(response.first(), response.second());
             }
         } finally {
             adminLock.unlock();

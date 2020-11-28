@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ConfigParser {
 
-    static String[] validKeys = {"admin", "starttime", "endtime", "name", "organizer", "databasepath", "documentspath", "url"};
+    static String[] validKeys = {"admin", "name", "organizer", "databasepath", "documentspath", "url"};
 
     public static Conference parseConfigFile(String s) {
 
@@ -25,7 +25,7 @@ public class ConfigParser {
             lineNumber++;
         }
 
-        for(String mandKey : new String[]{"name", "organizer", "endtime", "url"}) {
+        for(String mandKey : new String[]{"name", "organizer", "url"}) {
             if(!map.containsKey(mandKey)) {
                 throw new IllegalArgumentException("Missing key " + mandKey);
             }
@@ -38,8 +38,6 @@ public class ConfigParser {
         Conference conf = new Conference
                 (map.get("name"),
                         map.get("organizer"),
-                        Long.parseLong(map.getOrDefault("starttime", "" + (System.currentTimeMillis() / 1000))),
-                        Long.parseLong(map.get("endtime")),
                         new HashMap<Integer, Admin>(),
                         new HashMap<Integer, Voting>(),
                         new HashMap<String, Document>(),

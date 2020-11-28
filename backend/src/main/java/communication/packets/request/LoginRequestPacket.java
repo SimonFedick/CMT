@@ -35,12 +35,12 @@ public class LoginRequestPacket extends RequestPacket {
         if(password == null) {
             password = "";
         }
-        Pair<LoginResponse, Pair<String, Long>> result;
+        Pair<LoginResponse, String> result;
         result = conference.login(username, password);
 
         Packet response;
         if(result.first() == LoginResponse.Valid) {
-            response = new LoginResponsePacket(result.second().first(), result.second().second());
+            response = new LoginResponsePacket(result.second());
         } else {
             response = new ResponsePacket(PacketType.LOGIN_RESPONSE, RequestResult.Failure);
         }
