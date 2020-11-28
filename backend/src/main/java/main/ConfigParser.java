@@ -63,6 +63,17 @@ public class ConfigParser {
         allAdmins.forEach(a -> eMails.add(a.getEmail()));
         //conf.deleteAllAdmins();
 
+        System.out.println("===[Removed Accounts]===");
+        new LinkedList<>(allAdmins).forEach(a -> {
+            for(List<String> admin : admins) {
+                String mail = admin.get(1);
+                if(a.getEmail().equals(mail)) return;
+            }
+            System.out.println(a.toString() + "\n");
+            allAdmins.remove(a);
+            conf.removeAdmin(a.getID());
+        });
+
         System.out.println("===[Existing Accounts]===");
         allAdmins.forEach(a -> {
             System.out.println(a.toString());

@@ -222,8 +222,8 @@ public class ConfigParserTests {
                 "endTime : '1607731200' # A unix timestamp. This field is mandatory\n" +
                 "url : 'http://localhost' # the url at which the conference is hosted \n" +
                 "admin : 'name1:email1:group:residence:function' \n" +
-                "admin : 'name4:email2:group:residence:function' \n" +
-                "admin : 'name5:email3:group:residence:function' ";
+                "admin : 'name4:email4:group:residence:function' \n" +
+                "admin : 'name5:email5:group:residence:function' ";
 
         c = ConfigParser.parseConfigFile(config);
 
@@ -238,13 +238,13 @@ public class ConfigParserTests {
         AtomicBoolean found3 = new AtomicBoolean(false);
 
         c.getAllAdmins().forEach(a -> {
-            if(a.getName().equals("name1")) {
+            if(a.getEmail().equals("email1")) {
                 found1.set(true);
             }
-            if(a.getName().equals("name4")) {
+            if(a.getEmail().equals("email4")) {
                 found2.set(true);
             }
-            if(a.getName().equals("name5")) {
+            if(a.getEmail().equals("email5")) {
                 found3.set(true);
             }
 
