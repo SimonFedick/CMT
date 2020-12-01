@@ -162,18 +162,17 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return true, iff the db stored the new present value correctly
      */
     @Override
-    public Boolean setPresentValueofUser(String userName, Boolean present) {
+    public void setPresentValueofUser(String userName, Boolean present) {
         Connection connection = this.openConnection();
         String sqlstatement = "UPDATE users SET present = ?  WHERE username = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sqlstatement)) {
             stmt.setBoolean(1, present);
             stmt.setString(2, userName);
             stmt.executeUpdate();
-            return true;
         } catch (SQLException e) {
             System.err.println("An exception occurred while updating Present value of  a user.");
             System.err.println(e.getMessage());
-            return false;
+            throw new IllegalArgumentException(e.getMessage());
         } finally {
             this.closeConnection(connection);
         }
@@ -218,9 +217,9 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the user was successfully removed.
      */
     @Override
-    public boolean removeUser(int userID) {
+    public void removeUser(int userID) {
         if(!this.userIDAlreadyUsed(userID)) {
-            return false;
+            throw new IllegalArgumentException("Attendee does not exist!");
         }
         Connection connection = this.openConnection();
         String sqlstatement = "DELETE FROM users WHERE userID = ?";
@@ -230,11 +229,10 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException e) {
             System.err.println("An exception occurred while removing a user from the database.");
             System.err.println(e.getMessage());
-            return false;
+            throw new IllegalArgumentException(e.getMessage());
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 
 
@@ -247,7 +245,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the operation was successful.
      */
     @Override
-    public boolean logoutUser(int userID, String pw, String token) {
+    public void logoutUser(int userID, String pw, String token) {
         Connection connection = this.openConnection();
         String sqlstatement = "UPDATE users SET password = ?, token = ?, present = ? WHERE userID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sqlstatement)) {
@@ -267,11 +265,10 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException e) {
             System.err.println("An exception occurred while logging out/invalidating a user.");
             System.err.println(e.getMessage());
-            return false;
+            throw new IllegalArgumentException(e.getMessage());
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 
     /**
@@ -315,7 +312,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the new token was successfully added to the database.
      */
     @Override
-    public boolean storeNewToken(int userID, String token) {
+    public void storeNewToken(int userID, String token) {
         Connection connection = this.openConnection();
         String sqlstatement = "UPDATE users SET token = ? WHERE userID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sqlstatement)) {
@@ -325,11 +322,10 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException e) {
             System.err.println("An exception occurred while storing a new user token.");
             System.err.println(e.getMessage());
-            return false;
+            throw new IllegalArgumentException(e.getMessage());
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 
     /**
@@ -341,7 +337,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the new password was successfully added to the database.
      */
     @Override
-    public boolean storeNewPassword(int userID, String password) {
+    public void storeNewPassword(int userID, String password) {
         Connection connection = this.openConnection();
         String sqlstatement = "UPDATE users SET password = ?  WHERE userID = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sqlstatement)) {
@@ -351,11 +347,10 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException e) {
             System.err.println("An exception occurred while storing a new user password.");
             System.err.println(e.getMessage());
-            return false;
+            throw new IllegalArgumentException(e.getMessage());
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 
     /**
@@ -394,10 +389,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
     @Override
     public boolean userIDAlreadyUsed(int id) {
         List<Integer> ids = this.getIDs();
-        if(ids.contains(id)) {
-            return true;
-        }
-        return false;
+        return ids.contains(id);
     }
 
     /**
@@ -461,7 +453,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the attendee was added correctly.
      */
     @Override
-    public boolean addAttendee(Attendee a, String password, String token) {
+    public void addAttendee(Attendee a, String password, String token) {
         Connection connection = this.openConnection();
         String sqlstatement = "INSERT INTO users(userID, fullname, username, password, "
                 + "token, email, groups, function, residence, isAdmin, present)"
@@ -482,11 +474,10 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException ex) {
             System.err.println("An exception occurred while adding a new attendee.");
             System.err.println(ex.getMessage());
-            return false;
+            throw new IllegalArgumentException(ex.getMessage());
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 
     /**
@@ -565,7 +556,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the Attendee was overwritten properly
      */
     @Override
-    public boolean editAttendee(Attendee a) {
+    public void editAttendee(Attendee a) {
         Connection connection = this.openConnection();
         String sqlstatement = "UPDATE users SET fullname = ?, "
                 + " email = ?, "
@@ -586,11 +577,10 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException e) {
             System.err.println("An exception occurred while trying to overwrite an attendee.");
             System.err.println(e.getMessage());
-            return false;
+            throw new IllegalArgumentException(e.getMessage());
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 
     /**********************************specialAdminFunctionality********************************************/
@@ -606,7 +596,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the admin was added correctly.
      */
     @Override
-    public boolean addAdmin(Admin a, String password, String token) {
+    public void addAdmin(Admin a, String password, String token) {
         Connection connection = this.openConnection();
         String sqlstatement = "INSERT INTO users(userID, fullname, username, password ,"
                 + "token, email, groups, function, residence, isAdmin, present)"
@@ -627,11 +617,10 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException ex) {
             System.err.println("An exception occurred while adding a new admin.");
             System.err.println(ex.getMessage());
-            return false;
+            throw new IllegalArgumentException(ex.getMessage());
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 
     /**
@@ -675,7 +664,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the user was successfully removed.
      */
     @Override
-    public boolean removeAllAdmins() {
+    public void removeAllAdmins() {
         Connection connection = this.openConnection();
         String sqlstatement = "DELETE FROM users WHERE isAdmin = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sqlstatement)) {
@@ -684,11 +673,10 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException e) {
             System.err.println("An exception occurred while removing all admins from the database.");
             System.err.println(e.getMessage());
-            return false;
+            throw new IllegalArgumentException(e.getMessage());
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 
     /**
@@ -735,7 +723,7 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
      * @return True, iff the Admin was overwritten properly
      */
     @Override
-    public boolean editAdmin(Admin a) {
+    public void editAdmin(Admin a) {
         Connection connection = this.openConnection();
         String sqlstatement = "UPDATE users SET fullname = ? , "
                 + "email = ? ,"
@@ -755,10 +743,9 @@ public class DB_UserManager extends DB_Controller implements DB_UserManagement {
         } catch (SQLException e) {
             System.err.println("An exception occurred while trying to overwrite an admin.");
             System.err.println(e.getMessage());
-            return false;
+            throw new IllegalArgumentException(e.getMessage());
         } finally {
             this.closeConnection(connection);
         }
-        return true;
     }
 }

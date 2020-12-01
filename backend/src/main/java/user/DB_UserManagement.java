@@ -2,6 +2,7 @@ package user;
 
 import utils.Pair;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @SuppressWarnings("checkstyle:typename")
@@ -35,7 +36,7 @@ public interface DB_UserManagement {
      *
      * @return true, iff the db stored the new present value correctly
      */
-    Boolean setPresentValueofUser(String userName, Boolean present);
+    void setPresentValueofUser(String userName, Boolean present);
 
     /**
      * Converts a token to a user ID.
@@ -55,7 +56,7 @@ public interface DB_UserManagement {
      *
      * @return True, iff the user was successfully removed.
      */
-    boolean removeUser(int userID);
+    void removeUser(int userID);
 
     /**
      * This method logs out a user in the database. This method must not delete the entry but should indicate that the
@@ -67,7 +68,7 @@ public interface DB_UserManagement {
      *
      * @return True, iff the operation was successful.
      */
-    boolean logoutUser(int userID, String pw, String token);
+    void logoutUser(int userID, String pw, String token);
 
     /**
      * Returns a list of all passwords to be handed out to the users, combined with their ID.
@@ -84,7 +85,7 @@ public interface DB_UserManagement {
      *
      * @return True, iff the new token was successfully added to the database.
      */
-    boolean storeNewToken(int userID, String token);
+    void storeNewToken(int userID, String token);
 
     /**
      * Overwrites the password of the user, in case there was a problem with the device.
@@ -94,7 +95,7 @@ public interface DB_UserManagement {
      *
      * @return True, iff the new password was successfully added to the database.
      */
-    boolean storeNewPassword(int userID, String password);
+    void storeNewPassword(int userID, String password);
 
     /**
      * This methods checks whether a username was already used to enable unique username creation.
@@ -137,7 +138,7 @@ public interface DB_UserManagement {
      *
      * @return True, iff the attendee was added correctly.
      */
-    boolean addAttendee(Attendee a, String password, String token);
+    void addAttendee(Attendee a, String password, String token);
 
     /**
      * @return a list of all {@link Attendee}s in the database.
@@ -160,7 +161,7 @@ public interface DB_UserManagement {
      *
      * @return True, iff the Attendee was overwritten properly
      */
-    boolean editAttendee(Attendee a);
+    void editAttendee(Attendee a);
 
     /**
      * Adds a new {@link Admin} to the database.
@@ -171,7 +172,7 @@ public interface DB_UserManagement {
      *
      * @return True, iff the admin was added correctly.
      */
-    boolean addAdmin(Admin a, String password, String token);
+    void addAdmin(Admin a, String password, String token);
 
     /**
      * @return a list of all {@link Admin}s in the database.
@@ -181,9 +182,9 @@ public interface DB_UserManagement {
     /**
      * This methods deletes all admins in the database.
      *
-     * @return True, iff the user was successfully removed.
+     * @return True, iff the admins were successfully removed.
      */
-    boolean removeAllAdmins();
+    void removeAllAdmins();
 
     /**
      * Returns the {@link Admin} with the given userID.
@@ -201,5 +202,5 @@ public interface DB_UserManagement {
      *
      * @return True, iff the Admin was overwritten properly
      */
-    boolean editAdmin(Admin a);
+    void editAdmin(Admin a);
 }

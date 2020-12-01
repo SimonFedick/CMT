@@ -12,7 +12,7 @@ public interface DB_RequestManagement extends RequestObserver {
      *
      * @return True, iff the {@link Request} was successfully added.
      */
-    boolean addRequest(Request req);
+    void addRequest(Request req);
 
     /**
      * Reconstructs a given {@link Request} from the database.
@@ -44,5 +44,5 @@ public interface DB_RequestManagement extends RequestObserver {
      *
      * @return True, iff the requests was successfully removed.
      */
-    boolean removeRequest(int userID);
+    void removeRequest(int userID);
 }
