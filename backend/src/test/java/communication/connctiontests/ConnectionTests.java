@@ -46,7 +46,7 @@ public class ConnectionTests {
         Attendee attendee = new Attendee("connectsALot", "connectsALot", "connectsALot", "connectsALot", "connectsALot", "connectsALot");
         conference.addAttendee(attendee);
         String password = conference.getUserPassword(attendee.getID()).second();
-        String token = conference.login(attendee.getUserName(), password).second().first();
+        String token = conference.login(attendee.getUserName(), password).second();
         GetAgendaRequestPacket packet = new GetAgendaRequestPacket();
         packet.setToken(token);
         WebSocketClient[] clients = new WebSocketClient[maxClientConnections];

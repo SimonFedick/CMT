@@ -55,8 +55,8 @@ public class PacketTests {
         Attendee attendee = new Attendee("attendee", "attendee", "attendee", "attendee", "attendee", "attendee");
         conference.addAdmin(admin, "admin");
         conference.addAttendee(attendee, "attendee");
-        adminToken = conference.login(admin.getUserName(), "admin").second().first();
-        attendeeToken = conference.login(attendee.getUserName(), "attendee").second().first();
+        adminToken = conference.login(admin.getUserName(), "admin").second();
+        attendeeToken = conference.login(attendee.getUserName(), "attendee").second();
         adminID = conference.tokenToID(adminToken);
         attendeeID = conference.tokenToID(attendeeToken);
         handler = new CommunicationHandler(conference, 10, 10, false);

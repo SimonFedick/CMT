@@ -22,7 +22,6 @@ public class ConfigParserTests {
     public void defaultValues() {
         String config = "name : 'SE Presentation\\#3' # mandatory field. Presents a possible escape sequence\n" +
                 "organizer : 'Group 17' # mandatory field\n" +
-                "endTime : '1607731200' # A unix timestamp. This field is mandatory\n" +
                 "url : 'http://localhost' # the url at which the conference is hosted \n" +
                 "admin : 'name:email:group:residence:function' ";
 
@@ -131,7 +130,6 @@ public class ConfigParserTests {
 
         String config = "name : 'SE Presentation\\#3'\n" +
                 "organizer : 'Group 17' # mandatory field\n" +
-                "endTime : '1607731200' # A unix timestamp. This field is mandatory\n" +
                 "url : 'http://localhost' # the url at which the conference is hosted \n" +
                 "admin : 'name:email:group:residence:function' ";
 
@@ -171,7 +169,6 @@ public class ConfigParserTests {
 
         String config = "name : 'SE Presentation\\#3'\n" +
                 "organizer : 'Group 17' # mandatory field\n" +
-                "endTime : '1607731200' # A unix timestamp. This field is mandatory\n" +
                 "url : 'http://localhost' # the url at which the conference is hosted \n" +
                 "admin : 'name:email:group:residence:function' ";
 
@@ -192,7 +189,6 @@ public class ConfigParserTests {
 
         config = "name : 'New name'\n" +
                 "organizer : 'Group 17' # mandatory field\n" +
-                "endTime : '1607731200' # A unix timestamp. This field is mandatory\n" +
                 "url : 'http://localhost' # the url at which the conference is hosted \n" +
                 "admin : 'name:email:group:residence:function' ";
 
@@ -209,7 +205,6 @@ public class ConfigParserTests {
     public void adminChange() {
         String config = "name : 'SE Presentation\\#3' # mandatory field. Presents a possible escape sequence\n" +
                 "organizer : 'Group 17' # mandatory field\n" +
-                "endTime : '1607731200' # A unix timestamp. This field is mandatory\n" +
                 "url : 'http://localhost' # the url at which the conference is hosted \n" +
                 "admin : 'name1:email1:group:residence:function' \n" +
                 "admin : 'name2:email2:group:residence:function' \n" +
@@ -219,7 +214,6 @@ public class ConfigParserTests {
 
         config = "name : 'SE Presentation\\#3' # mandatory field. Presents a possible escape sequence\n" +
                 "organizer : 'Group 17' # mandatory field\n" +
-                "endTime : '1607731200' # A unix timestamp. This field is mandatory\n" +
                 "url : 'http://localhost' # the url at which the conference is hosted \n" +
                 "admin : 'name1:email1:group:residence:function' \n" +
                 "admin : 'name4:email4:group:residence:function' \n" +
@@ -259,7 +253,6 @@ public class ConfigParserTests {
     public void escape() {
         String config = "name : 'e\\\\s\\\\\\'cap\\#e' # mandatory field. Presents a possible escape sequence\n" +
                 "organizer : 'Group 17' # mandatory field\n" +
-                "endTime : '1607731200' # A unix timestamp. This field is mandatory\n" +
                 "url : 'http://localhost' # the url at which the conference is hosted \n" +
                 "admin : 'name:email:group:residence:function' ";
 

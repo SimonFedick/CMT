@@ -191,14 +191,14 @@ public class UserTests {
 
 
                     String password = conf.getUserPassword(attendeeIds[aux.get()]).second();
-                    Pair<LoginResponse, Pair<String, Long>> response;
+                    Pair<LoginResponse, String> response;
                     if(aux.get() % 2 == 1) {
                         response = conf.login(attendeeNames[aux.get()], password);
                         if(response.first() != LoginResponse.Valid) {
                             fail("Failed to perform a valid login");
                         }
                         conf.setPresentValue(attendeeNames[aux.get()], true);
-                        assertEquals("Got a wrong id for attendee ", attendeeIds[aux.get()], conf.tokenToID(response.second().first()));
+                        assertEquals("Got a wrong id for attendee ", attendeeIds[aux.get()], conf.tokenToID(response.second()));
                     } else {
                         response = conf.login("Mikke" + aux.get(), password + "a");
                         if(response.first() == LoginResponse.Valid) {
@@ -246,9 +246,9 @@ public class UserTests {
         conf.addAttendee(a);
         String password = conf.getUserPassword(a.getID()).second();
         conf.logoutUser(a.getID());
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() == LoginResponse.Valid) {
-            fail("Managed to log in a user which should not be loged in");
+            fail("Managed to log in a user which should not be logged in");
         }
 
     }
@@ -259,7 +259,7 @@ public class UserTests {
         conf.addAttendee(a);
         String password = conf.getUserPassword(a.getID()).second();
         conf.logoutAllUsers();
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() == LoginResponse.Valid) {
             fail("Managed to log in a user which should not be loged in");
         }
@@ -272,7 +272,7 @@ public class UserTests {
         conf.addAttendee(a);
         String password = conf.getUserPassword(a.getID()).second();
         conf.logoutNonAdmins(false);
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() == LoginResponse.Valid) {
             fail("Managed to log in a user which should not be loged in");
         }
@@ -285,7 +285,7 @@ public class UserTests {
         conf.addAttendee(a);
         String password = conf.getUserPassword(a.getID()).second();
         conf.removeAttendee(a.getID());
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() == LoginResponse.Valid) {
             fail("Managed to log in a user which should not be loged in");
         }
@@ -298,7 +298,7 @@ public class UserTests {
         conf.addAdmin(a);
         String password = conf.getUserPassword(a.getID()).second();
         conf.removeAdmin(a.getID());
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() == LoginResponse.Valid) {
             fail("Managed to log in a user which should not be loged in");
         }
@@ -311,7 +311,7 @@ public class UserTests {
         conf.addAdmin(a);
         String password = conf.getUserPassword(a.getID()).second();
         conf.logoutAdmin(a.getID());
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() == LoginResponse.Valid) {
             fail("Managed to log in a user which should not be loged in");
         }
@@ -325,7 +325,7 @@ public class UserTests {
         conf.addAttendee(a);
         String password = conf.getUserPassword(a.getID()).second();
         conf.generateNewUserPassword(a.getID());
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() == LoginResponse.Valid) {
             fail("Managed to log in a user which should not be loged in");
         }
@@ -339,7 +339,7 @@ public class UserTests {
         conf.addAdmin(a);
         String password = conf.getUserPassword(a.getID()).second();
         conf.logoutNonAdmins(false);
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() != LoginResponse.Valid) {
             fail("Admins should not get logged out");
         }
@@ -352,7 +352,7 @@ public class UserTests {
         conf.addAttendee(a);
         String password = conf.getUserPassword(a.getID()).second();
 
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() != LoginResponse.Valid) {
             fail("First login should succeed");
         }
@@ -371,7 +371,7 @@ public class UserTests {
         conf.addAdmin(a);
         String password = conf.getUserPassword(a.getID()).second();
 
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password);
+        Pair<LoginResponse, String> response = conf.login(a.userName, password);
         if(response.first() != LoginResponse.Valid) {
             fail("First login should succeed");
         }
@@ -390,7 +390,7 @@ public class UserTests {
         conf.addAdmin(a);
         String password = conf.getUserPassword(a.getID()).second();
 
-        Pair<LoginResponse, Pair<String, Long>> response = conf.login(a.userName, password + "a");
+        Pair<LoginResponse, String> response = conf.login(a.userName, password + "a");
         if(response.first() == LoginResponse.Valid) {
             fail("Managed to login with an invalid password");
         }
@@ -423,27 +423,27 @@ public class UserTests {
 
         String passwordA = conf.getUserPassword(a.getID()).second();
 
-        Pair<LoginResponse, Pair<String, Long>> responseA = conf.login(a.userName, passwordA);
+        Pair<LoginResponse, String> responseA = conf.login(a.userName, passwordA);
 
         String passwordB = conf.getUserPassword(b.getID()).second();
 
-        Pair<LoginResponse, Pair<String, Long>> responseB = conf.login(b.userName, passwordB);
+        Pair<LoginResponse, String> responseB = conf.login(b.userName, passwordB);
 
         String passwordC = conf.getUserPassword(c.getID()).second();
 
-        Pair<LoginResponse, Pair<String, Long>> responseC = conf.login(c.userName, passwordC);
+        Pair<LoginResponse, String> responseC = conf.login(c.userName, passwordC);
 
         conf.removeAttendee(c.getID());
 
-        if(conf.checkToken(responseA.second().first()) != TokenResponse.ValidAdmin) {
+        if(conf.checkToken(responseA.second()) != TokenResponse.ValidAdmin) {
             fail("Expected an admin token");
         }
 
-        if(conf.checkToken(responseB.second().first()) != TokenResponse.ValidAttendee) {
+        if(conf.checkToken(responseB.second()) != TokenResponse.ValidAttendee) {
             fail("Expected an attendee token");
         }
 
-        if(conf.checkToken(responseC.second().first()) != TokenResponse.TokenDoesNotExist) {
+        if(conf.checkToken(responseC.second()) != TokenResponse.TokenDoesNotExist) {
             fail("Expected an invalid token");
         }
 
@@ -456,15 +456,15 @@ public class UserTests {
         conf.addAttendee(a);
         String passwordA = conf.getUserPassword(a.getID()).second();
 
-        Pair<LoginResponse, Pair<String, Long>> responseA = conf.login(a.userName, passwordA);
+        Pair<LoginResponse, String> responseA = conf.login(a.userName, passwordA);
 
-        if(conf.checkToken(responseA.second().first()) != TokenResponse.ValidAttendee) {
+        if(conf.checkToken(responseA.second()) != TokenResponse.ValidAttendee) {
             fail("Token should be valid at this point");
         }
 
         conf.generateNewUserToken(a.getID());
 
-        if(conf.checkToken(responseA.second().first()) != TokenResponse.TokenDoesNotExist) {
+        if(conf.checkToken(responseA.second()) != TokenResponse.TokenDoesNotExist) {
             fail("Token should be invalid at this point");
         }
 

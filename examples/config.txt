@@ -8,8 +8,6 @@
 
 name : 'SE Presentation\#3' # mandatory field. Presents a possible escape sequence
 organizer : 'Group 17' # mandatory field
-startTime : '1579081095' # A unix timestamp. If not it is omitted, it wil default to the time at which this file is read
-endTime : '1579996799' # A unix timestamp. This field is mandatory
 databasePath : './db/conference.db' # Optional field. Defaults to  './testdb/testdb.db'
 documentsPath : './docs' # Optional field. Defaults to './docs'
 url : 'http://localhost' # the url at which the conference is hosted 'https://math-edu.eu/conference/home.html'
