@@ -10,6 +10,7 @@ import Cookies from "../../communication/utils/Cookies.js";
  * For Admin and attendee will work differently. 
  */
 
+var oneHundredYearsInSeconds = 60*60*24*365*1000;
 
 $( document ).ready(function() {
 
@@ -73,7 +74,7 @@ function login(name, password){
                     if(packet.result === "Valid") {
 						//Cookies must have an expiration date. Since we dont want the cookie to expire automaticall
 						//we set an absurely long duration until the cookie shouldbe deleted (100 years).
-                        Cookies.setCookie("token", packet.token, 60*60*24*365*1000);
+                        Cookies.setCookie("token", packet.token, oneHundredYearsInSeconds);
                         window.location.href = "./home.html";
                     } else {
                         $("#name").focus();
