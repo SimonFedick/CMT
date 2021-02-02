@@ -224,6 +224,8 @@ function generateAttendeeList(attendeeList){
             editResidenceID.val(currAttendee.residence);
             editFunctionID.val(currAttendee.function);
 
+            editPresentStatusID.val((currAttendee.present) ? 1 : 0)
+
             editDialog.dialog("open");
         });
     }
@@ -767,6 +769,7 @@ var editNameID = $('#editName'),
     editGroupID = $('#editGroup'),
     editResidenceID = $('#editResidence'),
     editFunctionID = $('#editFnctn'),
+    editPresentStatusID = $('#presentStatus'),
     editTipField = $('#editingTips'),
     editFields = $( [] ).add(editNameID).add(editMailID).add(editGroupID).add(editResidenceID).add(editFunctionID);
 
