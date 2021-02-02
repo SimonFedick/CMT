@@ -64,8 +64,8 @@ $(document).ready( function() {
 
 /**
  * Purpose of this function is to countdown a vote duration and to display it.
- * sessionstorage is used to store and retreive seconds for timer.
- * This function will take only one paramter i.e.
+ * sessionStorage is used to store and retrieve seconds for timer.
+ * This function will take only one parameter i.e.
  * @param seconds
  * Once the timer ends it will call displayActiveVote function again to display vote expiry message.
  * This will accept only one argument i.e.
@@ -83,8 +83,8 @@ function countdown(seconds) {
     var hd_counter = document.getElementById("hdtimer");
 
 	var t_hours = Math.floor(seconds / (60 * 60));
-    var t_minutes = parseInt(seconds/60);
-    var t_seconds = seconds % 60;
+    var t_minutes = parseInt(seconds/60) % 60; //Only count minutes up to one hour
+    var t_seconds = seconds % 60; //Only count seconds up to one minute
     if (counter) {
 		counter.innerHTML = "<span class='text-container' data-text-section ='voting' data-text-elem='timeLeft'>"+window.languageData["voting"]["timeLeft"]+ ": </span>" + t_hours + "hr: " + t_minutes + "min: " + (t_seconds < 10 ? "0" : "") + t_seconds + "sec";
 	}
