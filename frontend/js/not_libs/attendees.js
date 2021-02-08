@@ -370,7 +370,7 @@ function handleListUpload(event) {
             if(attendeeField[i] === ""){
                 continue;
             }
-            var currAttendeeData = attendeeField[i].split(":");
+            var currAttendeeData = attendeeField[i].split(",");
 
             //adding line count to the data
             currAttendeeData.push(i);
