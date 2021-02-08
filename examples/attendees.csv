@@ -1,2 +1,2 @@
-name:email@mail.com:group:residence:function
-test:test@test.com:test:test:test
+name,email@mail.com,group,residence,function
+test,test@test.com,test,test,test
