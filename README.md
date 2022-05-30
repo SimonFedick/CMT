@@ -190,7 +190,7 @@ Clicking the download icon in the header of the User Management section will gen
 
 
 
-## Contributers:
+## Contributors:
 (1) Muhammad Kamran - Frontend Layout + Frontend Voting Functionality
 
 (2) Jessica Werner - Database + Testing + Backend + Minor Frontend Functionality Implementation
