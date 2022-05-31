@@ -3,7 +3,7 @@
 ### Building the Backend
 Building the project requires gradle. For this please refer to: [https://gradle.org/install/](https://gradle.org/install/)
 Inside the 'Backend' folder type in the command `gradle :fatJar`
-This will produce a jar under `./build/libs/fullCMS-1.0.jar
+This will produce a jar under `./build/libs/fullCMS-1.0.jar`
 
 ### Building the Frontend
 The frontend can be found in the 'frontend' folder.  The 'config/config.js' file must be edited so that it contains the correct domain. This is the domain at which the ***jar*** is hosted, which may or may not be the same as the domain which hosts the frontend itself.
